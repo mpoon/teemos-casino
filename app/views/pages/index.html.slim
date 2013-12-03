@@ -1,0 +1,29 @@
+.wrapper
+  nav.navbar.navbar-default role="navigation"
+    /! Brand and toggle get grouped for better mobile display
+    .navbar-header
+      button.navbar-toggle data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand href="#"
+        | Teemo's Casino
+    /! Collect the nav links, forms, and other content for toggling
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav
+      section ng-controller="UserCtrl"
+        .nav.pull-right ng-include="'assets/user.html'"
+    /! .navbar-collapse
+  .content
+    .stream
+      object#live_embed_player_flash bgcolor="#000000" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=teemoscasino" height="100%" type="application/x-shockwave-flash" width="100%"
+        param name="allowFullScreen" value="true"
+        param name="allowScriptAccess" value="always"
+        param name="allowNetworking" value="all"
+        param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf"
+        param name="flashvars" value="hostname=www.twitch.tv&amp;channel=teemoscasino&amp;auto_play=true&amp;start_volume=25"
+    .chat
+      iframe#chat_embed.embeds frameborder="0" height="100%" scrolling="no" src="http://twitch.tv/chat/embed?channel=teemoscasino&amp;popout_chat=true" width="100%"
+  .control-panel
+    div ng-view="ng-view"

@@ -1,0 +1,108 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.embeds {
+    float: left;
+}
+
+// Betting states
+.betting-open {
+
+}
+.betting-closed {
+  opacity: 0.4;
+}
+
+.btn-blue {
+  background-color: #389cc6;
+  border-color: #389cc6;
+}
+.btn-blue:hover,
+.btn-blue:focus,
+.btn-blue:active,
+.btn-blue.active {
+  background-color: #328cb2;
+  border-color: #2d7d9e;
+}
+.btn-blue.disabled:hover,
+.btn-blue.disabled:focus,
+.btn-blue.disabled:active,
+.btn-blue.disabled.active,
+.btn-blue[disabled]:hover,
+.btn-blue[disabled]:focus,
+.btn-blue[disabled]:active,
+.btn-blue[disabled].active,
+fieldset[disabled] .btn-blue:hover,
+fieldset[disabled] .btn-blue:focus,
+fieldset[disabled] .btn-blue:active,
+fieldset[disabled] .btn-blue.active {
+  background-color: #389cc6;
+  border-color: #389cc6;
+}
+
+.btn-purple {
+  background-color: #ac1bbd;
+  border-color: #ac1bbd;
+}
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active,
+.btn-purple.active {
+  background-color: #9818a7;
+  border-color: #831590;
+}
+.btn-purple.disabled:hover,
+.btn-purple.disabled:focus,
+.btn-purple.disabled:active,
+.btn-purple.disabled.active,
+.btn-purple[disabled]:hover,
+.btn-purple[disabled]:focus,
+.btn-purple[disabled]:active,
+.btn-purple[disabled].active,
+fieldset[disabled] .btn-purple:hover,
+fieldset[disabled] .btn-purple:focus,
+fieldset[disabled] .btn-purple:active,
+fieldset[disabled] .btn-purple.active {
+  background-color: #ac1bbd;
+  border-color: #ac1bbd;
+}
+
+html,body{height:100%;}
+
+.wrapper {
+  margin: 0 auto;
+  height: 100%;
+}
+.navbar {
+  margin-bottom: 0px;
+}
+.content {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: 0;
+  overflow: hidden;
+  top: 52px;
+  bottom: 110px;
+}
+.stream {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 325px;
+  overflow: hidden;
+}
+.chat {
+  float: right;
+  width: 325px;
+  height: 100%;
+}
+.control-panel {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow: hidden;
+  min-height: 100px;
+}
