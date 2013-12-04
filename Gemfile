@@ -31,13 +31,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-
 gem 'pusher'
 gem 'omniauth'
 gem 'omniauth-twitchtv' , github: 'masterkain/omniauth-twitchtv'
 
+group :production do
+  gem 'unicorn'
+  gem 'rails_12factor'
+end
 
-gem 'rails_12factor', group: :production
 gem 'debugger', group: :development
 
 # Use ActiveModel has_secure_password
