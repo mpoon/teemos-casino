@@ -1,0 +1,11 @@
+development:
+  client_id: oi73fp9z72z73l0zdwoxwu3t0kd5i1u
+  client_secret: sy34g2rv538feeapso2v5nb5j7prn4n
+
+test:
+  client_id: gm9ryy3x9i16fhdc73cmya2x35jyzvq
+  client_secret: 430oa61jngh3g73shzi7a8k2y65wvv6
+
+production:
+  client_id: mhj6ojzvy53v0rmvqbcs5ontpwt643d
+  client_secret: 2hylv8xgmprlohov5c6f9o1eyz6g8iz

@@ -12,7 +12,17 @@ TeemosCasino::Application.routes.draw do
         post :end
       end
     end
+
+    resource :user, only: [:show] do
+      get :logout, to: :destroy
+    end
   end
+
+  # Authentication
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

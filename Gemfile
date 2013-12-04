@@ -33,6 +33,8 @@ end
 
 
 gem 'pusher'
+gem 'omniauth'
+gem 'omniauth-twitchtv' , github: 'masterkain/omniauth-twitchtv'
 
 
 gem 'rails_12factor', group: :production

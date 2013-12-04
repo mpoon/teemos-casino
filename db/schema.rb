@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204033128) do
+ActiveRecord::Schema.define(version: 20131204050416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 20131204033128) do
     t.string   "kind",       null: false
     t.string   "team"
     t.date     "expires"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "twitch_id",              null: false
+    t.integer  "wallet",     default: 0, null: false
+    t.string   "name",                   null: false
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

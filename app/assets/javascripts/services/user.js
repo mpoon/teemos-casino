@@ -4,7 +4,7 @@ angular.module('salty-spork').factory('user',
     var deferred = $q.defer();
     var status = {};
 
-    $http.get('/api/v1/user')
+    $http.get('/api/user')
     .success(function(user) {
       status.user = user;
       status.loggedIn = true;
