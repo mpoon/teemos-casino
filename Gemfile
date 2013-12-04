@@ -6,8 +6,10 @@ gem 'rails', '4.0.2'
 # Use postgres as the database for Active Record
 gem 'pg'
 
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
+gem 'slim'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -29,9 +31,12 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'slim'
+
+gem 'pusher'
+
 
 gem 'rails_12factor', group: :production
+gem 'debugger', group: :development
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
