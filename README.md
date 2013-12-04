@@ -34,9 +34,11 @@ Push to heroku!
 
     git push heroku master
 
-## Debugging
+## Console
 
-    TODO
+  So interactive!
+
+    bin/rails console
 
 ## Migrations
 
@@ -50,7 +52,7 @@ And run it on dev
 
 then production
 
-    TODO
+    heroku run rake db:migrate
 
 See the [migrations guide](http://guides.rubyonrails.org/migrations.html) for more
 
