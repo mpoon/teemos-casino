@@ -34,6 +34,7 @@ end
 gem 'pusher'
 gem 'omniauth'
 gem 'omniauth-twitchtv' , github: 'masterkain/omniauth-twitchtv'
+gem "sentry-raven"
 
 group :production do
   gem 'unicorn'
@@ -41,6 +42,7 @@ group :production do
 end
 
 gem 'debugger', group: :development
+gem 'dotenv-rails', groups: [:development, :test]
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
