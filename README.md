@@ -1,12 +1,12 @@
 # Teemo's Casino
 
-[...]
+Salts' Ahoy!
 
 ## Quick Install
   The quickest way to get started is to clone the project and utilize it like this:
 
   Install [Vagrant](http://downloads.vagrantup.com) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
- 
+
   Start up Vagrant
 
     vagrant up
@@ -50,7 +50,7 @@ And run it on dev
 
     bin/rake db:migrate
 
-then production
+then production (`brew install heroku`)
 
     heroku run rake db:migrate
 
@@ -63,11 +63,6 @@ See the [migrations guide](http://guides.rubyonrails.org/migrations.html) for mo
   To visit the site without going through the CDN, first hit `/bypass`
 
 ### Vagrant
-
-  If you get NFS issues, try running the following
-
-    sudo nfsd checkexports
-    vagrant reload
 
 #### Re-Provisioning Vagrant
 
