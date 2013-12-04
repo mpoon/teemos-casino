@@ -42,11 +42,11 @@ Push to heroku!
 
 Create the migration
 
-    TODO
+    bin/rails generate model GameEvents
 
 And run it on dev
 
-    TODO
+    bin/rake db:migrate
 
 then production
 
