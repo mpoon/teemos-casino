@@ -37,7 +37,12 @@ class Api::GameEventsController < Api::BaseController
   private
 
   def require_api_key
-    if headers['Authorization'] != TeemosCasino::Application.config.api_key
+    key = TeemosCasino::Application.config.api_key
+    unless key.present?
+      logger.info "No API key set; not requiring" and return
+    end
+
+    if headers['Authorization'] != key
       render json: {error: "Missing or wrong API key"}, status: :forbidden
     end
   end
