@@ -24,6 +24,10 @@ Salts' Ahoy!
 
     bin/rails server
 
+  Migrate
+
+    bin/rake db:migrate
+
   Then open a browser and go to:
 
     http://localhost:3000
