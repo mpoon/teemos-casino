@@ -4,7 +4,7 @@ class CreateGameEvents < ActiveRecord::Migration
       t.integer :game_id
       t.string :kind, null: false
       t.string :team
-      t.date :expires
+      t.datetime :expires_at
       t.timestamps
     end
   end

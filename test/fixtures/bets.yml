@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  game_id: 1
+  amount: 15
+  team: blue
+  user_id: 1
+
+two:
+  game_id: 1
+  amount: 125
+  team: purple
+  user_id: 2

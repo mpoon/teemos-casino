@@ -28,19 +28,23 @@ Salts' Ahoy!
 
     http://localhost:3000
 
-## Deploying
+## Development
+
+  Rails Console. So interactive!
+
+    bin/rails console
+
+  Running tests
+
+    bin/rake test
+
+### Deploying
 
 Push to heroku!
 
     git push heroku master
 
-## Console
-
-  So interactive!
-
-    bin/rails console
-
-## Migrations
+### Migrations
 
 Create the migration
 

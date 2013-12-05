@@ -12,4 +12,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def login(user)
+    session[:_current_user_id] = user.id
+  end
+
+  def assert_json(body, message=nil)
+    assert_equal(body.stringify_keys, JSON.parse(response.body), message)
+  end
 end

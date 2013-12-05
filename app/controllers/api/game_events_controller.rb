@@ -1,14 +1,16 @@
-class Api::GameEventsController < ApplicationController
+class Api::GameEventsController < Api::BaseController
   def start
     event = GameEvent.create(
       game_id: params.require(:game_id),
-      kind: "gameStart"
+      kind: "game_start",
+      expires_at: DateTime.now + GameEvent::EXPIRY 
     )
 
-
-
     if event.errors.empty?
-      PusherClient.global('game_start', {game_id: event.game_id})
+      PusherClient.global('game_start', {
+        game_id: event.game_id,
+        expires: event.expires_at.to_i * 1000
+      })
       render json: {message: "success"}
     else
       render json: {error: event.errors.first}
@@ -18,7 +20,7 @@ class Api::GameEventsController < ApplicationController
   def end
     event = GameEvent.create(
       game_id: params.require(:game_id),
-      kind: "gameEnd",
+      kind: "game_end",
       team: params.require(:winner)
     )
 

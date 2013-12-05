@@ -20,4 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Validation failed: %{errors}"
+      models:
+        bet:
+          attributes:
+            game_id:
+              taken: "may not have multiple bets"

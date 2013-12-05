@@ -11,16 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204050416) do
+ActiveRecord::Schema.define(version: 20131205025517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bets", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "amount"
+    t.string   "team"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bets", ["game_id", "user_id"], name: "index_bets_on_game_id_and_user_id", unique: true, using: :btree
 
   create_table "game_events", force: true do |t|
     t.integer  "game_id"
     t.string   "kind",       null: false
     t.string   "team"
-    t.date     "expires"
+    t.datetime "expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
