@@ -17,7 +17,7 @@ TeemosCasino::Application.routes.draw do
       get :logout, to: :destroy
     end
 
-    resource :bet, only: [:create]
+    resource :bet, only: [:show, :create]
   end
 
   # Authentication
