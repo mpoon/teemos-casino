@@ -15,18 +15,14 @@ Salts' Ahoy!
 
     vagrant ssh
 
-  Install dependencies:
+  Install dependencies and prepare the database:
 
     cd /vagrant
     bundle install
 
   Start the server
 
-    bin/rails server
-
-  Migrate
-
-    bin/rake db:migrate
+    bin/rake db:schema load
 
   Then open a browser and go to:
 
