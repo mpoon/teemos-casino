@@ -35,6 +35,7 @@ gem 'pusher'
 gem 'omniauth'
 gem 'omniauth-twitchtv' , github: 'masterkain/omniauth-twitchtv'
 gem "sentry-raven"
+gem "newrelic_rpm"
 
 group :production do
   gem 'unicorn'
