@@ -1,7 +1,7 @@
 /*global mixpanel,machina*/
 angular.module('salty-spork').controller('BettingCtrl',
-  ['$scope', '$resource', 'user', 'pusher', 'betMode', 'bettingFsm',
-  function BettingCtrl($scope, $resource, user, pusher, betMode, bettingFsm) {
+  ['$scope', '$resource', '$timeout', 'user', 'pusher', 'betMode', 'bettingFsm',
+  function BettingCtrl($scope, $resource, $timeout, user, pusher, betMode, bettingFsm) {
 
   var teams = {
     "blue": "Blue",
@@ -17,6 +17,8 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   $scope.currentGameId = 0;
   $scope.betMode = "closed";
+  $scope.blueOdds = 0;
+  $scope.purpleOdds = 0;
 
   var Bet = {
     init: function() {
@@ -58,10 +60,33 @@ angular.module('salty-spork').controller('BettingCtrl',
     // TODO: show loading spinner
   };
 
+  pusher.on("bet_odds", function(msg) {
+    console.log('bet odds: ' + msg)
+    $scope.$apply(function() {
+      $scope.blueOdds = msg.blue;
+      $scope.purpleOdds = msg.purple;
+      console.log("Bet odds update: blue " + msg.blue + " purple " + msg.purple);
+    });
+  });
+
+  var countdownInterval;
+  var updateCountdown = function(expires) {
+    var now = expires - Date.now();
+    if (now > 0) {
+      $scope.countdown = Math.floor(now / 1000);
+    } else {
+      clearInterval(countdownInterval);
+    }
+    $scope.$digest();
+  };
+
   bettingFsm.on('betting.open', function(event) {
     $scope.$apply(function() {
       console.debug("got betting open msg from fsm:", event);
       $scope.betMode = "open";
+
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(_.bind(updateCountdown, null, event.expires), 100);
       Bet.reset();
     });
   });

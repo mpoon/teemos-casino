@@ -1,6 +1,6 @@
 #!/usr/bin/ruby -w
 
-game_time = (ARGV[0] || 30).to_i
+game_time = (ARGV[0] || 60).to_i
 sleep_time = (ARGV[1] || 5).to_i
 
 
