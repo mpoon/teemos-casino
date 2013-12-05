@@ -6,6 +6,16 @@ Pusher.logger = Rails.logger
 
 class PusherClient
   def self.global(event, message)
+    unless Rails.configuration.deliver_pusher
+      Rails.logger.info "[PusherClient] Ignoring push message" and return
+    end
     Pusher.trigger('global', event, message)
+  end
+
+  def self.message(user, event, message)
+    unless Rails.configuration.deliver_pusher
+      Rails.logger.info "[PusherClient] Ignoring push message" and return
+    end
+    Pusher.trigger("user.#{user.id}", event, message)
   end
 end

@@ -33,4 +33,6 @@ TeemosCasino::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  config.deliver_pusher = false
 end
