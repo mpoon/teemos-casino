@@ -4,10 +4,10 @@ one:
   game_id: 1
   amount: 15
   team: blue
-  user_id: 1
+  user: bettor_one
 
 two:
   game_id: 1
   amount: 125
   team: purple
-  user_id: 2
+  user: bettor_two

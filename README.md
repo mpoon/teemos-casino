@@ -19,10 +19,15 @@ Salts' Ahoy!
 
     cd /vagrant
     bundle install
-
-  Start the server
-
     bin/rake db:schema load
+
+  Start the workers (optional)
+
+    bin/bundle exec sidekiq
+
+  And finally the server
+
+    bin/rails server
 
   Then open a browser and go to:
 
@@ -34,9 +39,23 @@ Salts' Ahoy!
 
     bin/rails console
 
-  Running tests
+  Workers (debug page at `/debug/sidekiq`)
+
+    bin/bundle exec sidekiq
+
+### Testing
+
+  Running all tests
 
     bin/rake test
+
+  Running all tests without recreating database (somewhat faster)
+
+    bin/rake test:all
+
+  Running a specific test
+
+    bin/rake test test/workers/bet_payout_worker_test.rb
 
 ### Deploying
 

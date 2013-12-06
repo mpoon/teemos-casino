@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+one_start:
+  game_id: 1
   kind: game_start
 
-two:
+one_end:
+  game_id: 1
   kind: game_end
+  team: purple

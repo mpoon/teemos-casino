@@ -6,7 +6,6 @@ gem 'rails', '4.0.2'
 # Use postgres as the database for Active Record
 gem 'pg'
 
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'slim'
@@ -34,8 +33,11 @@ end
 gem 'pusher'
 gem 'omniauth'
 gem 'omniauth-twitchtv' , github: 'masterkain/omniauth-twitchtv'
-gem "sentry-raven"
-gem "newrelic_rpm"
+gem 'sentry-raven'
+gem 'newrelic_rpm'
+
+gem 'sinatra', '>= 1.3.0', :require => nil # Sidekiq web UI
+gem 'sidekiq'
 
 group :production do
   gem 'unicorn'

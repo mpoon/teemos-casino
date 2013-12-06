@@ -26,8 +26,12 @@ class Api::GameEventsController < Api::BaseController
       team: params.require(:winner)
     )
 
+    # TODO: validate team is valid (in model)
+
     if event.errors.empty?
+      BetPayoutWorker.perform_async(event.id)
       PusherClient.global('game_end', {game_id: event.game_id})
+
       render json: {message: "success"}
     else
       render json: {error: event.errors.first}

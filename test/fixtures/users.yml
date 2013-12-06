@@ -4,3 +4,13 @@ one:
   twitch_id: 1
   name: testuser1
   wallet: 100
+
+bettor_one:
+  twitch_id: 2
+  name: testbettor1
+  wallet: 500
+
+bettor_two:
+  twitch_id: 3
+  name: testbettor2
+  wallet: 10
