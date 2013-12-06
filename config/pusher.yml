@@ -1,0 +1,14 @@
+development:
+  app_id: 59700
+  key: 7cdb1cc4d12f8d5a1959
+  secret: 67e982af15429cab74e3
+
+test:
+  app_id: 59700
+  key: 7cdb1cc4d12f8d5a1959
+  secret: 67e982af15429cab74e3
+
+production:
+  app_id: 61055
+  key: c0e2a8af93ebbf21e31d
+  secret: f7bded6add157627aa9b
