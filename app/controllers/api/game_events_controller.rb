@@ -46,7 +46,7 @@ class Api::GameEventsController < Api::BaseController
       logger.info "No API key set; not requiring" and return
     end
 
-    if headers['Authorization'] != key
+    if request.headers['Authorization'] != key
       render json: {error: "Missing or wrong API key"}, status: :forbidden
     end
   end
