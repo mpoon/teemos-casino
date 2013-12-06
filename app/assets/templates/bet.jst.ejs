@@ -3,7 +3,7 @@
     <h3>Login to start betting!</h3>
   </div>
   <div class="col-md-offset-4" ng-if="showBetControls" ng-switch on="betMode">
-    <p ng-show="bet.status == 'placed'">Current Bet: {{bet.amount}} on {{bet.team}} Payout multiplier <font color="blue">{{blueOdds}}</font> : <font color="purple">{{purpleOdds}}</font></p>
+    <p ng-show="bet.status == 'placed'">Current Bet: {{bet.amount}} on {{bet.team}}. Payout multiplier <font color="blue">{{blueOdds}}</font> : <font color="purple">{{purpleOdds}}</font></p>
     <p ng-switch-when="open">Place your bet! Betting closes in {{countdown}} seconds. Payout multiplier <font color="blue">{{blueOdds}}</font> : <font color="purple">{{purpleOdds}}</font></p>
     <p ng-switch-when="closed">Betting is closed. Payout multiplier <font color="blue">{{blueOdds}}</font> : <font color="purple">{{purpleOdds}}</font></p>
     <div ng-class="'betting-' + betMode">

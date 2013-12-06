@@ -4,7 +4,7 @@ angular.module('salty-spork', [
 ]).config(["$routeProvider", function($routeProvider) {
   $routeProvider
   .when('/', {
-    templateUrl: "<%= asset_path 'bet.html' %>",
+    template: JST["bet"](),
     controller: 'BettingCtrl'
   })
   .otherwise({
@@ -13,4 +13,7 @@ angular.module('salty-spork', [
 }])
 .config(["$locationProvider", function($locationProvider) {
   $locationProvider.html5Mode(true);
+}])
+.run(["$templateCache", function($templateCache) {
+  $templateCache.put('user.html', JST["user"]());
 }]);

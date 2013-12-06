@@ -33,6 +33,8 @@
 // ============
 //= require notify
 
+// Angular templates
+//= require_tree ../templates
 //= require core
 //= require_tree ./controllers
 //= require_tree ./services
