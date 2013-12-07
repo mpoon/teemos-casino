@@ -42,24 +42,15 @@ gem 'newrelic_rpm'
 gem 'sinatra', '>= 1.3.0', :require => nil # Sidekiq web UI
 gem 'sidekiq'
 
+# Set ENV variables from .env
+gem 'dotenv-rails', groups: [:development, :test]
+
+# Use debugger
+gem 'debugger', group: [:development, :test]
+
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
 end
-
-gem 'debugger', group: :development
-gem 'dotenv-rails', groups: [:development, :test]
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 ruby "2.0.0"
