@@ -19,7 +19,7 @@ Salts' Ahoy!
 
     cd /vagrant
     bundle install
-    bin/rake db:schema load
+    bin/rake db:schema:load
 
   Start the workers (optional)
 
