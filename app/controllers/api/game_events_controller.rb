@@ -1,3 +1,5 @@
+require 'net/http'
+
 class Api::GameEventsController < Api::BaseController
   before_action :require_api_key
 
@@ -31,6 +33,15 @@ class Api::GameEventsController < Api::BaseController
     if event.errors.empty?
       BetPayoutWorker.perform_async(event.id)
       PusherClient.global('game_end', {game_id: event.game_id})
+
+      uri = URI('https://api.twitch.tv/kraken/channels/teemoscasino/commercial')
+      Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        request = Net::HTTP::Post.new uri
+        request['Authorization'] = "OAuth #{TeemosCasino::Application.config.kraken_commercial_oauth}"
+        request['Accept'] = 'application/vnd.twitchtv.v3+json'
+        request.set_form_data('length' => '90')
+        response = http.request request
+      end
 
       render json: {message: "success"}
     else
