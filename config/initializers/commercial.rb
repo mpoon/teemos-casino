@@ -1,1 +1,1 @@
-TeemosCasino::Application.config.kraken_commercial_oauth = 'de6jph3psrixxj1he64keyv6vcqpedm'
+COMMERCIAL_CONFIG = YAML.load_file(Rails.root.join("config/commercial.yml"))[::Rails.env]

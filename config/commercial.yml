@@ -1,0 +1,8 @@
+development:
+  access_token:
+
+test:
+  access_token:
+
+production:
+  access_token: de6jph3psrixxj1he64keyv6vcqpedm
