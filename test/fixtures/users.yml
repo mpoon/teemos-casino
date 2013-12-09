@@ -14,3 +14,8 @@ bettor_two:
   twitch_id: 3
   name: testbettor2
   wallet: 10
+
+bettor_three:
+  twitch_id: 4
+  name: testbettor3
+  wallet: 999999
