@@ -78,6 +78,13 @@ angular.module('salty-spork').factory('bettingFsm',
           console.log("Betting period expired!");
           this.transition('closed');
         },
+        "bet.odds": function(id, odds) {
+          if (id !== this.currentGameId) {
+            console.warn("[FSM] Ignoring bet odds for unknown game_id (" + id + ").");
+          }
+
+          this.emit('bet.odds', odds);
+        },
         "placeBet": function(amount, team) {
           var bet = new Bet(),
               self = this;
@@ -121,6 +128,10 @@ angular.module('salty-spork').factory('bettingFsm',
     console.log("End game: " + msg.game_id);
     mixpanel.track('receive_game_end', {game_id: msg.game_id});
     bettingFsm.handle('game.end', msg.game_id);
+  });
+
+  pusher.on("bet.odds", function(msg) {
+    bettingFsm.handle('bet.odds', msg.game_id, msg.odds);
   });
 
   betMode.getStatus().then(function(status) {

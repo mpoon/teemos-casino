@@ -17,8 +17,7 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   $scope.currentGameId = 0;
   $scope.betMode = "closed";
-  $scope.blueOdds = 0;
-  $scope.purpleOdds = 0;
+  $scope.odds = {blue: 0, purple: 0}
 
   var Bet = {
     init: function() {
@@ -60,15 +59,6 @@ angular.module('salty-spork').controller('BettingCtrl',
     // TODO: show loading spinner
   };
 
-  pusher.on("bet_odds", function(msg) {
-    console.log('bet odds: ' + msg)
-    $scope.$apply(function() {
-      $scope.blueOdds = msg.blue;
-      $scope.purpleOdds = msg.purple;
-      console.log("Bet odds update: blue " + msg.blue + " purple " + msg.purple);
-    });
-  });
-
   var countdownInterval;
   var updateCountdown = function(expires) {
     var now = expires - Date.now();
@@ -84,6 +74,8 @@ angular.module('salty-spork').controller('BettingCtrl',
     $scope.$apply(function() {
       console.debug("got betting open msg from fsm:", event);
       $scope.betMode = "open";
+      $scope.odds.blue = 0
+      $scope.odds.purple = 0
 
       clearInterval(countdownInterval);
       countdownInterval = setInterval(_.bind(updateCountdown, null, event.expires), 100);
@@ -119,6 +111,13 @@ angular.module('salty-spork').controller('BettingCtrl',
     $scope.$apply(function() {
       $.notify.error("Sorry, we had an error placing your bet");
       console.debug("we got a betting error", event);
+    });
+  });
+
+  bettingFsm.on("bet.odds", function(odds) {
+    $scope.$apply(function() {
+      $scope.odds.blue = odds.blue;
+      $scope.odds.purple = odds.purple;
     });
   });
 }]);

@@ -11,8 +11,8 @@ angular.module('salty-spork').factory("pusher",
     $.notify.error("Oops, your connection may have been interrupted. Reconnecting...");
   });
 
-  globalChannel.bind('bet_odds', function(message) {
-    ee.emit("bet_odds", message);
+  globalChannel.bind('bet.odds', function(message) {
+    ee.emit("bet.odds", message);
   });
 
   globalChannel.bind('game_start', function(message) {
