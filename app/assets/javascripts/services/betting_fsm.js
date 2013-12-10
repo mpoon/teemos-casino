@@ -65,14 +65,14 @@ angular.module('salty-spork').factory('bettingFsm',
           }
 
           if (id !== this.currentGameId) {
-            console.error("[FSM] Attempt to end game with unknown game_id (" + id + ")." +
+            console.warn("[FSM] Attempt to end game with unknown game_id (" + id + ")." +
                           " Transitioning anyway.");
           }
           this.transition('closed');
         },
         "game.expired": function(id) {
           if (id !== this.currentGameId) {
-            console.error("[FSM] Attempt to expire game with unknown game_id (" + id + ")." +
+            console.warn("[FSM] Attempt to expire game with unknown game_id (" + id + ")." +
                           " Transitioning anyway.");
           }
           console.log("Betting period expired!");
@@ -104,9 +104,6 @@ angular.module('salty-spork').factory('bettingFsm',
             self.emit('bet.error', { error: err });
           });
         }
-      },
-      placed: {
-        // Bets locked in; TODO
       }
     }
   });
