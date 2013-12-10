@@ -1,8 +1,14 @@
 development:
+  enabled: false
+  channel:
   access_token:
 
 test:
+  enabled: false
+  channel:
   access_token:
 
 production:
+  enabled: true
+  channel: teemoscasino
   access_token: de6jph3psrixxj1he64keyv6vcqpedm
