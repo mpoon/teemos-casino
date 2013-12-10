@@ -2,11 +2,12 @@ class BetPayoutWorker
   include Sidekiq::Worker
 
   # Pay out bet odds given an game_end event
-  def perform(event_id)
-    event = GameEvent.find(event_id)
-    odds = event.bet_odds
+  def perform(open_bet_id)
+    open_bet = OpenBet.find(open_bet_id)
+    event = GameEvent.find_by(game_id: open_bet.game_id, kind: "game_end")
+    odds = open_bet.odds
 
-    Bet.where(game_id: event.game_id).each do |bet|
+    open_bet.bets.each do |bet|
       won = bet.team == event.team
       amount = (odds[event.team.to_sym] * bet.amount).floor
 

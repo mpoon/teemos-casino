@@ -21,11 +21,15 @@
 
 en:
   activerecord:
+    attributes:
+      bet:
+        open_bet_id: Open bet
+
     errors:
       messages:
         record_invalid: "Validation failed: %{errors}"
       models:
         bet:
           attributes:
-            game_id:
+            open_bet_id:
               taken: "may not have multiple bets"

@@ -4,32 +4,26 @@ class Api::BetsController < Api::BaseController
   def show
     status = {mode: 'closed', game_id: nil, amount: nil, team: nil, expires: nil}
 
-    game_start = GameEvent.order(created_at: :desc).find_by(kind: 'game_start')
-
-    unless game_start
+    open_bet = OpenBet.where(event: 'game').order(created_at: :desc).limit(1).first
+    if !open_bet || open_bet.state != "open"
       render json: status and return
     end
 
-    game_end = GameEvent.find_by(kind: 'game_end', game_id: game_start.game_id)
 
-    if game_end
-      render json: status and return
-    end
-
-    active_bet = current_user.bets.find_by(game_id: game_start.game_id)
+    active_bet = open_bet.bets.find_by(user: current_user)
     if active_bet
       status = {mode: 'placed',
-        game_id: active_bet.game_id,
+        game_id: open_bet.game_id,
         amount: active_bet.amount,
         team: active_bet.team,
         expires: nil
       }
-    elsif !game_start.expired?
+    elsif !open_bet.expired?
       status = {mode: 'open',
-        game_id: game_start.game_id,
+        game_id: open_bet.game_id,
         amount: nil,
         team: nil,
-        expires: game_start.expires_at
+        expires: open_bet.expires_at
       }
     end
 
@@ -41,8 +35,13 @@ class Api::BetsController < Api::BaseController
     params.require(:team)
     amount = params.require(:amount).to_i
 
-    bet = Bet.new(params.permit([:game_id, :team]))
-    bet.user = current_user
+    open_bet = OpenBet.find_by(game_id: params[:game_id])
+    if open_bet.closed?
+      render json: {error: "Betting is not open!"}, status: :unprocessable_entity
+      return
+    end
+
+    bet = Bet.new(open_bet: open_bet, team: params[:team], user: current_user)
 
     if current_user.wallet < amount
       render json: {error: "You don't have that much money!"}, status: :unprocessable_entity

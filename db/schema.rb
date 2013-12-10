@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206040436) do
+ActiveRecord::Schema.define(version: 20131210042836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bets", force: true do |t|
-    t.integer  "game_id"
+    t.integer  "open_bet_id"
     t.integer  "amount"
     t.string   "team"
     t.integer  "user_id"
@@ -25,12 +25,21 @@ ActiveRecord::Schema.define(version: 20131206040436) do
     t.datetime "updated_at"
   end
 
-  add_index "bets", ["game_id", "user_id"], name: "index_bets_on_game_id_and_user_id", unique: true, using: :btree
+  add_index "bets", ["open_bet_id"], name: "index_bets_on_open_bet_id", using: :btree
+  add_index "bets", ["user_id"], name: "index_bets_on_user_id", using: :btree
 
   create_table "game_events", force: true do |t|
     t.integer  "game_id"
     t.string   "kind",       null: false
     t.string   "team"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "open_bets", force: true do |t|
+    t.integer  "game_id"
+    t.string   "event"
+    t.string   "state"
     t.datetime "expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"

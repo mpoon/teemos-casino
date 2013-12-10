@@ -4,45 +4,45 @@ class Api::GameEventsController < Api::BaseController
   before_action :require_api_key
 
   def start
-    event = GameEvent.create(
+    event = GameEvent.create!(
       game_id: params.require(:game_id),
-      kind: "game_start",
-      expires_at: DateTime.now + GameEvent::EXPIRY
+      kind: "game_start"
     )
 
-    if event.errors.empty?
-      PusherClient.global('game_start', {
-        game_id: event.game_id,
-        expires: event.expires_at.to_i * 1000
-      })
+    open_bet = OpenBet.create!(
+      game_id: event.game_id,
+      event: "game",
+      state: :open,
+      expires_at: DateTime.now + OpenBet::EXPIRY
+    )
 
-      UpdateBetOddsWorker.perform_async(event.id)
+    PusherClient.global('game_start', {
+      game_id: event.game_id,
+      expires: open_bet.expires_at.to_i * 1000
+    })
 
-      render json: {message: "success"}
-    else
-      render json: {error: event.errors.first}
-    end
+    UpdateBetOddsWorker.perform_async(open_bet.id)
+
+    render json: {message: "success"}
   end
 
   def end
-    event = GameEvent.create(
+    event = GameEvent.create!(
       game_id: params.require(:game_id),
       kind: "game_end",
       team: params.require(:winner)
     )
 
     # TODO: validate team is valid (in model)
+    open_bet = OpenBet.find_by(game_id: event.game_id)
+    open_bet.update!(state: :closed)
 
-    if event.errors.empty?
-      BetPayoutWorker.perform_async(event.id)
-      PusherClient.global('game_end', {game_id: event.game_id})
+    PusherClient.global('game_end', {game_id: event.game_id})
 
-      PlayCommercialWorker.perform_async()
+    BetPayoutWorker.perform_async(open_bet.id)
+    PlayCommercialWorker.perform_async()
 
-      render json: {message: "success"}
-    else
-      render json: {error: event.errors.first}
-    end
+    render json: {message: "success"}
   end
 
   private

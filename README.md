@@ -39,7 +39,7 @@ Salts' Ahoy!
 
     bin/rails console
 
-  Workers (debug page at `/debug/sidekiq`)
+  Workers (debug page at `/debug/sidekiq` for admins)
 
     bin/bundle exec sidekiq
 

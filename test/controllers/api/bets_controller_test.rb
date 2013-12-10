@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class Api::BetsControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-
   setup :login_user
 
   test "should place bet" do
@@ -28,7 +24,13 @@ class Api::BetsControllerTest < ActionController::TestCase
     post :create, {game_id: 1, team: "purple", amount: 10}
     post :create, {game_id: 1, team: "purple", amount: 10}
     assert_response :unprocessable_entity
-    assert_json({message: "Validation failed: Game may not have multiple bets"})
+    assert_json({message: "Validation failed: Open bet may not have multiple bets"})
+  end
+
+  test "should not allow bet after expiration" do
+    post :create, {game_id: open_bets(:expired).game_id, team: "purple", amount: 10}
+    assert_response :unprocessable_entity
+    assert_json({error: "Betting is not open!"})
   end
 
   def login_user

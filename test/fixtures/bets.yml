@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  game_id: 1
+  open_bet: one
   amount: 15
   team: blue
   user: bettor_one
 
 two:
-  game_id: 1
+  open_bet: one
   amount: 125
   team: purple
   user: bettor_two

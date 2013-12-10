@@ -1,5 +1,6 @@
 class Bet < ActiveRecord::Base
   belongs_to :user
+  belongs_to :open_bet
 
   validates :amount, numericality: {
     only_integer: true,
@@ -7,5 +8,5 @@ class Bet < ActiveRecord::Base
   }
   validates :team, inclusion: { in: %w(purple blue),
     message: "%{value} is not a valid team" }
-  validates_uniqueness_of :game_id, :scope => :user_id
+  validates_uniqueness_of :open_bet_id, :scope => :user_id
 end

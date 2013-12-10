@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  game_id: 1
+  event: game
+  state: open
+
+expired:
+  game_id: 2
+  event: game
+  state: closed
+  expires_at: #{DateTime.yesterday}
