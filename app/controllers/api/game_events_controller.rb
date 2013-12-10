@@ -1,3 +1,5 @@
+require 'net/http'
+
 class Api::GameEventsController < Api::BaseController
   before_action :require_api_key
 
@@ -34,6 +36,8 @@ class Api::GameEventsController < Api::BaseController
     if event.errors.empty?
       BetPayoutWorker.perform_async(event.id)
       PusherClient.global('game_end', {game_id: event.game_id})
+
+      PlayCommercialWorker.perform_async()
 
       render json: {message: "success"}
     else
