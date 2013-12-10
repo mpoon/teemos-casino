@@ -8,6 +8,9 @@ angular.module('salty-spork').controller('UserCtrl',
     pusher.on("wallet_update", function(msg) {
       $scope.$apply(function() {
         $scope.user.wallet = msg.wallet;
+        if (msg.message) {
+          $.notify.alert(msg.message);
+        }
         console.log("Wallet update: ", msg);
       });
     });

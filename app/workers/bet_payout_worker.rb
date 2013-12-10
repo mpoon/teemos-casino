@@ -15,7 +15,7 @@ class BetPayoutWorker
 
       Bet.transaction do
         if won
-          bet.user.update!(wallet: bet.user.wallet + amount)
+          bet.user.update_wallet!(amount, :payout)
         end
         bet.destroy!
       end

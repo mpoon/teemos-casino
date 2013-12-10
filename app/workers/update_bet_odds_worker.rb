@@ -21,6 +21,7 @@ class UpdateBetOddsWorker
           purple: odds[:purple]
         })
       end
+
       sleep UPDATE_INTERVAL
     end
   end

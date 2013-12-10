@@ -49,12 +49,10 @@ class Api::BetsController < Api::BaseController
     end
 
     Bet.transaction do
-      current_user.update!(wallet: current_user.wallet - amount)
+      current_user.update_wallet!(-amount, :bet)
       bet.amount = amount
       bet.save!
     end
-
-    # TODO: trigger a job to update betting odds
 
     render json: {message: "Bet placed!"}
   end
