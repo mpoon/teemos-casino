@@ -18,6 +18,7 @@ class UpdateBetOddsWorker
         logger.info "[UpdateBetOddsWorker] OpenBet id: #{open_bet.id} Odds blue: #{odds[:blue]} purple: #{odds[:purple]}"
         PusherClient.global('bet.odds', {
           game_id: open_bet.game_id,
+          open_bet_id: open_bet.id,
           odds: {
             blue: odds[:blue],
             purple: odds[:purple]

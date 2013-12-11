@@ -10,3 +10,9 @@ expired:
   event: game
   state: closed
   expires_at: #{DateTime.yesterday}
+
+no_bets:
+  game_id: 3
+  event: game
+  state: open
+  expires_at: #{DateTime.tomorrow}

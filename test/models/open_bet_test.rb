@@ -16,4 +16,11 @@ class OpenBetTest < ActiveSupport::TestCase
     expected_odds = {blue: 1.06, purple: 17.12}
     assert_equal expected_odds, open_bet.odds
   end
+
+  test "should have no odds if no bets" do
+    open_bet = open_bets(:no_bets)
+
+    expected_odds = {blue: 0, purple: 0}
+    assert_equal expected_odds, open_bet.odds
+  end
 end
