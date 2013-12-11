@@ -23,7 +23,7 @@ class BetPayoutWorkerTest < ActiveSupport::TestCase
     user = bet.user
 
     initial = user.wallet
-    expected = initial + (bet.amount * event.bet_odds[bet.team.to_sym])
+    expected = initial + (bet.amount * open_bet.odds[bet.team.to_sym]).to_i
 
     @worker.perform(open_bet.id)
     wallet = User.find(user).wallet
@@ -35,6 +35,12 @@ class BetPayoutWorkerTest < ActiveSupport::TestCase
     refute_empty open_bets(:one).bets
     @worker.perform(open_bets(:one).id)
     assert_empty open_bets(:one).bets
+  end
+
+  test "updates bet streak" do
+    user = bets(:one).user
+    @worker.perform(open_bets(:one).id)
+    assert_equal 1, user.reload.bet_streak
   end
 
   def create_worker

@@ -10,12 +10,17 @@ class BetPayoutWorker
     open_bet.bets.each do |bet|
       won = bet.team == event.team
       amount = (odds[event.team.to_sym] * bet.amount).floor
+      user = bet.user
 
       logger.info "[BetPayoutWorker] Bet won:#{won} for #{bet.amount} on #{bet.team}: #{amount}"
 
       Bet.transaction do
         if won
-          bet.user.update_wallet!(amount, :payout)
+          user.update_bet_streak :win
+          user.update_wallet!(amount, :payout)
+        else
+          user.update_bet_streak :loss
+          user.save
         end
         bet.destroy!
       end

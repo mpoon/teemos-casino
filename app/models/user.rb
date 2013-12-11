@@ -1,12 +1,42 @@
 class User < ActiveRecord::Base
   has_many :bets
 
+  store_accessor :properties,
+    :bet_streak,
+    :bet_count
+
   validates :wallet, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0
   }
 
-  after_commit :wallet_update, :if => ->(r){ previous_changes.include?(:wallet) }
+  def update_bet_streak(result)
+    unless [:win, :loss].include? result
+      raise ArgumentError.new("Unknown result #{result}!")
+    end
+
+    if result == :win
+      self.bet_streak = [bet_streak, 0].max + 1
+    else
+      self.bet_streak = [bet_streak, 0].min - 1
+    end
+  end
+
+  def bet_streak=(count)
+    super(count.to_i)
+  end
+
+  def bet_streak
+    super.to_i
+  end
+
+  def bet_count=(count)
+    super(count.to_i)
+  end
+
+  def bet_count
+    super.to_i
+  end
 
   def update_wallet!(change, reason)
     message = nil
@@ -16,7 +46,7 @@ class User < ActiveRecord::Base
     when :payout
       message = "You won #{change} mushrooms!"
     else
-      throw ArgumentError.new("Unknown reason!")
+      raise ArgumentError.new("Unknown reason!")
     end
 
     increment_with_sql!(:wallet, change)

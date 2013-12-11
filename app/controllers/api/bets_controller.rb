@@ -54,6 +54,9 @@ class Api::BetsController < Api::BaseController
       bet.save!
     end
 
+    current_user.bet_count += 1
+    current_user.save
+
     render json: {message: "Bet placed!"}
   end
 end

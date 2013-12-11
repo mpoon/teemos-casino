@@ -55,7 +55,7 @@ Salts' Ahoy!
 
   Running a specific test
 
-    bin/rake test test/workers/bet_payout_worker_test.rb
+    bin/rake test TEST=test/workers/bet_payout_worker_test.rb
 
 ### Deploying
 
