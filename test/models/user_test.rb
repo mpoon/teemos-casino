@@ -20,4 +20,12 @@ class UserTest < ActiveSupport::TestCase
     u.update_bet_streak :loss
     assert_equal -2, u.bet_streak
   end
+
+  test "#increment_with_sql allows other attribute saves" do
+    u = users(:one)
+    name = "newname"
+    u.name = name
+    u.increment_with_sql!(:wallet, 5)
+    assert_equal name, u.name
+  end
 end

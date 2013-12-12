@@ -20,8 +20,8 @@ class BetPayoutWorker
           user.update_wallet!(amount, :payout)
         else
           user.update_bet_streak :loss
-          user.save
         end
+        user.save!
         bet.destroy!
       end
     end

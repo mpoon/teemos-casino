@@ -8,3 +8,30 @@ one_end:
   game_id: 1
   kind: game_end
   team: purple
+
+two_start:
+  game_id: 2
+  kind: game_start
+
+two_end:
+  game_id: 2
+  kind: game_end
+  team: purple
+
+three_start:
+  game_id: 3
+  kind: game_start
+
+three_end:
+  game_id: 3
+  kind: game_end
+  team: purple
+
+four_start:
+  game_id: 4
+  kind: game_start
+
+four_end:
+  game_id: 4
+  kind: game_end
+  team: purple

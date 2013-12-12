@@ -47,14 +47,14 @@ ActiveRecord::Schema.define(version: 20131211112611) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "twitch_id",              null: false
-    t.integer  "wallet",     default: 0, null: false
-    t.string   "name",                   null: false
+    t.string   "twitch_id",               null: false
+    t.integer  "wallet",     default: 0,  null: false
+    t.string   "name",                    null: false
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin"
-    t.hstore   "properties"
+    t.hstore   "properties", default: {}
   end
 
 end

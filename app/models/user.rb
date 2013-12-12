@@ -38,6 +38,13 @@ class User < ActiveRecord::Base
     super.to_i
   end
 
+  def stats
+    {
+      bet_count: bet_count,
+      bet_streak: bet_streak
+    }
+  end
+
   def update_wallet!(change, reason)
     message = nil
     case reason
@@ -58,7 +65,8 @@ class User < ActiveRecord::Base
   def increment_with_sql!(attribute, by = 1)
     raise ArgumentError.new("Invalid attribute: #{attribute}") unless attribute_names.include?(attribute.to_s)
     original_value_sql = "CASE WHEN #{attribute} IS NULL THEN 0 ELSE #{attribute} END"
-    self.class.where("id = #{id}").update_all("#{attribute} = #{original_value_sql} + #{by.to_i}")
-    reload
+    self.class.where(id: id).update_all("#{attribute} = #{original_value_sql} + #{by.to_i}")
+    value = self.class.where(id: id).select(attribute).first!.send(attribute)
+    self.send("#{attribute}=", value)
   end
 end

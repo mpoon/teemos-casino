@@ -38,8 +38,10 @@ class BetPayoutWorkerTest < ActiveSupport::TestCase
   end
 
   test "updates bet streak" do
-    user = bets(:one).user
-    @worker.perform(open_bets(:one).id)
+    bet = bets(:winner)
+    user = bet.user
+    assert_equal 0, user.bet_streak
+    @worker.perform(bet.open_bet.id)
     assert_equal 1, user.reload.bet_streak
   end
 

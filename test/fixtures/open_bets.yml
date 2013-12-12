@@ -16,3 +16,8 @@ no_bets:
   event: game
   state: open
   expires_at: #{DateTime.tomorrow}
+
+single_bet:
+  game_id: 4
+  event: game
+  state: open

@@ -11,3 +11,9 @@ two:
   amount: 125
   team: purple
   user: bettor_two
+
+winner:
+  open_bet: single_bet
+  amount: 1
+  team: purple
+  user: bettor_three
