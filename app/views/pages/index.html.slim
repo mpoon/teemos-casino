@@ -18,11 +18,89 @@
       .column-head.top
         p Make Free Virtual Bets On LOL Games
 
-      .bet-controller.card.middle
+      .bet-controller.card.middle.highlight
         .heading
-          span Place Your Bet
+          span Your Bet
 
         .card-content
+          .bet.betting-open.main-bet style="display: none"
+            .countdown
+              h4 Betting Time!
+
+              .clock
+                | 2:59
+
+            .wager
+              h4 Your Wager
+
+              form
+                .available
+                  p 0 Mushrooms Available
+
+                .bet-amount
+                  input.amount type="text" placeholder="Number of Mushrooms to Bet"
+
+                .options
+                  button.first Option
+                  button.second Option
+
+          .bet.betting-closed.main-bet style="display: none"
+            .your-bet
+              h4 Bet 1
+              .desc
+                | 50,000 on 
+                span.purple Purple
+
+            .bet-status
+              h4 Bet 1 Stat
+              .purple-bet-amount.bet-amount
+                | 1,000
+              .blue-bet-amount.bet-amount
+                | 2,000
+              .odds
+                span.purple 1
+                | :
+                span.blue 2
+
+          // if sidebet add border class
+          .bet.betting-open.main-bet style="display: block"
+            .countdown
+              h4 Mid-Game Betting Time!
+
+              .clock
+                | 2:59
+
+            .wager
+              h4 Your Wager
+
+              form
+                .available
+                  p 0 Mushrooms Available
+
+                .bet-amount
+                  input.amount type="text" placeholder="Number of Mushrooms to Bet"
+
+                .options
+                  button.first Option
+                  button.second Option
+
+          .bet.betting-closed.main-bet.border style="display: block"
+            .your-bet
+              h4 Bet 1
+              .desc
+                | 50,000 on 
+                span.purple Purple
+
+            .bet-status
+              h4 Bet 1 Stat
+              .purple-bet-amount.bet-amount
+                | 1,000
+              .blue-bet-amount.bet-amount
+                | 2,000
+              .odds
+                span.purple 1
+                | :
+                span.blue 2
 
       .notification.bottom
 
@@ -42,9 +120,36 @@
           param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf"
           param name="flashvars" value="hostname=www.twitch.tv&amp;channel=teemoscasino&amp;auto_play=true&amp;start_volume=25"
 
-      .user-status.card.bottom
+      .betting-status.card.bottom
         .heading
-          span Your Status
+          span Betters
+
+        .card-content.no-gutter
+          .betting-status-container.clearfix
+            .season-ranking.better-list
+              h4 Season's Top 10
+              ul
+                li
+                  .name
+                    | allenhklee
+                  .score
+                    | 9000000
+            .purple-betters.better-list
+              h4 Live Bets on Purple
+              ul
+                li
+                  .name
+                    | allenhklee
+                  .score
+                    | 9000000
+            .blue-betters.better-list
+              h4 Live Bets on Blue
+              ul
+                li
+                  .name
+                    | allenhklee
+                  .score
+                    | 9000000
 
     .right-container.column
       .column-head.top
@@ -56,10 +161,6 @@
         .card-content
           .chat-container
             iframe#chat_embed.embeds frameborder="0" height="100%" scrolling="no" src="http://twitch.tv/chat/embed?channel=teemoscasino&amp;popout_chat=true" width="100%"
-
-      .ranking.card.bottom
-        .heading
-          span Season {num} Ranking
 
     //.control-panel
       //div ng-view="ng-view"
