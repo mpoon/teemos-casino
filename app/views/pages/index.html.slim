@@ -1,29 +1,65 @@
 .wrapper
-  nav.navbar.navbar-default role="navigation"
-    /! Brand and toggle get grouped for better mobile display
-    .navbar-header
-      button.navbar-toggle data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand href="#"
+  header.clearfix
+    .main-menu.clearfix
+      a.logo href="#"
         | Teemo's Casino
+
+      ul.nav-menu.clearfix
+        li
+          a.selected href="#" Home
+        li
+          a href="#" Seasons
+
     /! Collect the nav links, forms, and other content for toggling
-    #bs-example-navbar-collapse-1.collapse.navbar-collapse
-      ul.nav.navbar-nav
-      section ng-controller="UserCtrl"
-        .nav.pull-right ng-include="'user.html'"
+    .user-menu ng-controller="UserCtrl" ng-include="'user.html'"
     /! .navbar-collapse
   .content
-    .stream
-      object#live_embed_player_flash bgcolor="#000000" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=teemoscasino" height="100%" type="application/x-shockwave-flash" width="100%"
-        param name="allowFullScreen" value="true"
-        param name="allowScriptAccess" value="always"
-        param name="allowNetworking" value="all"
-        param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf"
-        param name="flashvars" value="hostname=www.twitch.tv&amp;channel=teemoscasino&amp;auto_play=true&amp;start_volume=25"
-    .chat
-      iframe#chat_embed.embeds frameborder="0" height="100%" scrolling="no" src="http://twitch.tv/chat/embed?channel=teemoscasino&amp;popout_chat=true" width="100%"
-  .control-panel
-    div ng-view="ng-view"
+    .left-container.column
+      .column-head.top
+        p Make Free Virtual Bets On LOL Games
+
+      .bet-controller.card.middle
+        .heading
+          span Place Your Bet
+
+        .card-content
+
+      .notification.bottom
+
+    .center-container.column
+      .column-head.top
+        ul
+          li
+            p Users Watching: {Count}
+          li
+            p Music: {Title of Music} - {Artist}
+
+      .stream.card.middle
+        object#live_embed_player_flash bgcolor="#000000" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=teemoscasino" height="100%" type="application/x-shockwave-flash" width="100%"
+          param name="allowFullScreen" value="true"
+          param name="allowScriptAccess" value="always"
+          param name="allowNetworking" value="all"
+          param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf"
+          param name="flashvars" value="hostname=www.twitch.tv&amp;channel=teemoscasino&amp;auto_play=true&amp;start_volume=25"
+
+      .user-status.card.bottom
+        .heading
+          span Your Status
+
+    .right-container.column
+      .column-head.top
+        .social
+
+      .chat.card.middle
+        .heading
+          span Chat
+        .card-content
+          .chat-container
+            iframe#chat_embed.embeds frameborder="0" height="100%" scrolling="no" src="http://twitch.tv/chat/embed?channel=teemoscasino&amp;popout_chat=true" width="100%"
+
+      .ranking.card.bottom
+        .heading
+          span Season {num} Ranking
+
+    //.control-panel
+      //div ng-view="ng-view"

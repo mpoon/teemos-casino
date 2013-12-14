@@ -15,8 +15,6 @@
   </ul>
 </div>
 
-<div ng-if="!loggedIn" style="padding: 8px 0;">
-  <a class="brand" href="/auth/twitchtv" target="_self">
-    <%= image_tag 'twitchconnect.png' %>
-  </a>
-</div>
+<a class="connect-link" href="/auth/twitchtv" target="_self" ng-if="!loggedIn">
+  <%= image_tag 'twitchconnect.png' %>
+</a>
