@@ -2,12 +2,17 @@ angular.module('salty-spork').factory('user',
   ['$http', '$q', function($http, $q) {
 
     var deferred = $q.defer();
+    var ee = new EventEmitter();
     var status = {};
 
     $http.get('/api/user')
     .success(function(user) {
       status.user = user;
       status.loggedIn = true;
+
+      _.defer(function() {
+        ee.updateWallet(status.user.wallet);
+      })
 
       mixpanel.track(
         'login_success',
@@ -25,7 +30,11 @@ angular.module('salty-spork').factory('user',
       deferred.resolve(status);
     });
 
-    return {
-      getStatus: deferred.promise
+    ee.getStatus = deferred.promise;
+
+    ee.updateWallet = function(amount) {
+      ee.emit('wallet', amount);
     };
+
+    return ee;
   }]);

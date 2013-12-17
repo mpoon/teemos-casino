@@ -11,7 +11,7 @@ angular.module('salty-spork').controller('UserCtrl',
         if (msg.message) {
           $.notify.alert(msg.message);
         }
-        console.log("Wallet update: ", msg);
       });
+      user.updateWallet(msg.wallet);
     });
   }]);

@@ -3,6 +3,7 @@ class Api::UsersController < Api::BaseController
 
   def show
     render json: {
+      id: current_user.id,
       name: current_user.name,
       wallet: current_user.wallet,
       stats: current_user.stats
