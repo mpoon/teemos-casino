@@ -89,8 +89,8 @@
               | {{wallet | number}} Mushrooms Available
 
           .bet-amount
-            input.amount ng-model="betAmount" type="text" placeholder="Number of Mushrooms to Bet"
+            input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms to Bet"
 
           .options
-            button.first ng-click="makeBet(betAmount, 'purple')" Purple
-            button.second ng-click="makeBet(betAmount, 'blue')" Blue
+            button.first ng-click="makeBet(bet.amount, 'purple')" Purple
+            button.second ng-click="makeBet(bet.amount, 'blue')" Blue

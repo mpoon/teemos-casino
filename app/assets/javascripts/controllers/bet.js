@@ -36,7 +36,9 @@ angular.module('salty-spork').controller('BettingCtrl',
     reset: function() {
       $scope.bet = {
         team: null,
-        amount: 0,
+        // Allow the placeholder on the input to work
+        // by setting undefined instead of 0
+        amount: undefined,
         gameId: 0,
         status: null
       };
@@ -58,6 +60,21 @@ angular.module('salty-spork').controller('BettingCtrl',
 
     bettingFsm.handle('placeBet', amount, team);
     // TODO: show loading spinner
+  };
+
+  // Validate bet model on change
+  $scope.betAmountChange = function() {
+    console.log('change', $scope.bet.amount)
+    var num = parseInt($scope.bet.amount, 10);
+
+    if ($scope.bet.amount && _.isNaN(num)) {
+      // If not undefined (user input)
+      $scope.bet.amount = 0;
+    } else if (num > $scope.wallet) {
+      $scope.bet.amount = $scope.wallet;
+    } else {
+      $scope.bet.amount = num;
+    }
   };
 
   var countdownInterval;
