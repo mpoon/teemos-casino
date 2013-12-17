@@ -17,7 +17,8 @@
           h4 Bet
           .desc
             ' {{bet.amount | number}} on
-            span.purple Purple
+            span class="{{ bet.team | lowercase }}"
+              | {{bet.team}}
 
         .bet-status
           h4 Bet Stats
