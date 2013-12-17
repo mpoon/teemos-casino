@@ -14,7 +14,7 @@ apt-get install -y libpq-dev make g++
 apt-get install -y ruby2.0 ruby2.0-dev ruby2.0-doc
 
 apt-get install -y redis-server postgresql libsqlite3-dev
-apt-get install postgresql-contrib # hstore
+apt-get install -y postgresql-contrib # hstore
 
 ## ruby/rails deps
 apt-get install -y libsqlite3-dev nodejs
@@ -27,6 +27,7 @@ sudo -u postgres psql -c "DROP DATABASE IF EXISTS vagrant;"
 sudo -u postgres psql -c "DROP ROLE IF EXISTS vagrant;"
 sudo -u postgres psql -c "CREATE USER vagrant WITH PASSWORD 'vagrant' SUPERUSER;"
 sudo -u postgres psql -c "create database vagrant;"
+sudo -u postgres psql -d vagrant -c "CREATE EXTENSION hstore;"
 
 ## Set up ruby
 sudo gem install bundler
