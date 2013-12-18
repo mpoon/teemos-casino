@@ -52,6 +52,12 @@ class BetPayoutWorkerTest < ActiveSupport::TestCase
     assert_empty open_bets(:one).bets
   end
 
+  test "open_bet is resolved" do
+    assert_equal "open", open_bets(:one).state
+    @worker.perform(open_bets(:one).id)
+    assert_equal "resolved", open_bets(:one).state
+  end
+
   test "updates bet streak" do
     bet = bets(:winner)
     user = bet.user

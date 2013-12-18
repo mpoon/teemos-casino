@@ -21,7 +21,7 @@ class Api::GameEventsController < Api::BaseController
       expires: open_bet.expires_at.to_i * 1000
     })
 
-    UpdateBetOddsWorker.perform_async(open_bet.id)
+    BetUpdateWorker.perform_async(open_bet.id)
 
     render json: {message: "success"}
   end

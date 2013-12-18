@@ -9,7 +9,7 @@ class BetPayoutWorker
 
     open_bet.bets.each do |bet|
       won = bet.team == event.team
-      amount = (odds[event.team.to_sym] * bet.amount).floor
+      amount = (odds[event.team.to_sym][:mult] * bet.amount).floor
       user = bet.user
 
       logger.info "[BetPayoutWorker] Bet won:#{won} for #{bet.amount} on #{bet.team}: #{amount}"
@@ -29,5 +29,7 @@ class BetPayoutWorker
         bet.destroy!
       end
     end
+
+    open_bet.update!(state: :resolved)
   end
 end

@@ -23,15 +23,15 @@
         .bet-status
           h4 Bet Stats
           .purple-bet-amount.bet-amount
-            | 1,000
+            | {{odds.purple.pool | number}}
           .blue-bet-amount.bet-amount
-            | 2,000
+            | {{odds.blue.pool | number}}
           .odds
             span.purple
-              | {{odds.purple}}
+              | {{odds.purple.mult}}
             | :
             span.blue
-              | {{odds.blue}}
+              | {{odds.blue.mult}}
 
   .card-content
     .bet.betting-open.main-bet style="display: none"

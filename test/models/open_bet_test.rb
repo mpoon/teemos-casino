@@ -7,20 +7,20 @@ class OpenBetTest < ActiveSupport::TestCase
     bet1 = bets(:one)
     bet2 = bets(:two)
 
-    expected_odds = {blue: 9.3, purple: 1.1}
+    expected_odds = {:blue=>{:mult=>9.3, :pool=>15}, :purple=>{:mult=>1.1, :pool=>125}}
     assert_equal expected_odds, open_bet.odds
 
     user = users(:bettor_three)
     bet3 = Bet.create(open_bet: open_bet, team: 'blue', amount: 2000, user_id: user.id)
 
-    expected_odds = {blue: 1.1, purple: 17.1}
+    expected_odds = {:blue=>{:mult=>1.1, :pool=>2015}, :purple=>{:mult=>17.1, :pool=>125}}
     assert_equal expected_odds, open_bet.odds
   end
 
   test "should have no odds if no bets" do
     open_bet = open_bets(:no_bets)
 
-    expected_odds = {blue: 0, purple: 0}
+    expected_odds = {:blue=>{:mult=>0, :pool=>0}, :purple=>{:mult=>0, :pool=>0}}
     assert_equal expected_odds, open_bet.odds
   end
 
@@ -29,7 +29,7 @@ class OpenBetTest < ActiveSupport::TestCase
     user = users(:bettor_three)
     bet = Bet.create(open_bet: open_bet, team: 'blue', amount: 10, user_id: user.id)
 
-    expected_odds = {blue: 1, purple: 0}
+    expected_odds = {:blue=>{:mult=>1, :pool=>10}, :purple=>{:mult=>0, :pool=>0}}
     assert_equal expected_odds, open_bet.odds
   end
 end

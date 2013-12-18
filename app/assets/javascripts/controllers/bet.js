@@ -18,7 +18,25 @@ angular.module('salty-spork').controller('BettingCtrl',
   $scope.currentGameId = 0;
   $scope.wallet = 0;
   $scope.betMode = "closed";
-  $scope.odds = {blue: 0, purple: 0};
+
+  var BetOdds = {
+    reset: function() {
+      $scope.odds = {
+        blue: {
+          mult: 0,
+          pool: 0
+        },
+        purple: {
+          mult: 0,
+          pool: 0
+        }
+      };
+    },
+    update: function(odds) {
+      $scope.odds = odds;
+    }
+  };
+  BetOdds.reset();
 
   var Bet = {
     init: function() {
@@ -92,8 +110,7 @@ angular.module('salty-spork').controller('BettingCtrl',
     $scope.$apply(function() {
       console.debug("got betting open msg from fsm:", event);
       $scope.betMode = "open";
-      $scope.odds.blue = 0;
-      $scope.odds.purple = 0;
+      BetOdds.reset();
 
       clearInterval(countdownInterval);
       countdownInterval = setInterval(_.bind(updateCountdown, null, event.expires), 100);
@@ -134,8 +151,7 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   bettingFsm.on("bet.odds", function(odds) {
     $scope.$apply(function() {
-      $scope.odds.blue = odds.blue;
-      $scope.odds.purple = odds.purple;
+      BetOdds.update(odds);
     });
   });
 
