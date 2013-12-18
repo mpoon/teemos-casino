@@ -5,7 +5,7 @@ Salts' Ahoy!
 ## Quick Install
   The quickest way to get started is to clone the project and utilize it like this:
 
-  Install [Vagrant](http://downloads.vagrantup.com) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+  Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
   Start up Vagrant
 

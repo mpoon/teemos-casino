@@ -64,7 +64,6 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   // Validate bet model on change
   $scope.betAmountChange = function() {
-    console.log('change', $scope.bet.amount)
     var num = parseInt($scope.bet.amount, 10);
 
     if ($scope.bet.amount && _.isNaN(num)) {
