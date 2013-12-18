@@ -22,6 +22,7 @@ class Api::GameEventsController < Api::BaseController
     })
 
     BetUpdateWorker.perform_async(open_bet.id)
+    TeemoBotWorker.perform_in(15.seconds, open_bet.id)
 
     render json: {message: "success"}
   end
