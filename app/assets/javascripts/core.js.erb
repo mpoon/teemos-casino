@@ -1,19 +1,11 @@
 angular.module('salty-spork', [
   'ngResource',
   'ngRoute',
-]).config(["$routeProvider", function($routeProvider) {
-  $routeProvider
-  .when('/', {
-    template: JST["bet"](),
-    controller: 'BettingCtrl'
-  })
-  .otherwise({
-    redirectTo: '/'
-  });
-}])
-.config(["$locationProvider", function($locationProvider) {
+  'filters'
+]).config(["$locationProvider", function($locationProvider) {
   $locationProvider.html5Mode(true);
 }])
 .run(["$templateCache", function($templateCache) {
   $templateCache.put('user.html', JST["user"]());
+  $templateCache.put('bet.html', JST["bet"]());
 }]);

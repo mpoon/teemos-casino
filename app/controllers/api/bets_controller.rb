@@ -16,7 +16,7 @@ class Api::BetsController < Api::BaseController
         game_id: open_bet.game_id,
         amount: active_bet.amount,
         team: active_bet.team,
-        expires: nil
+        expires: open_bet.expires_at
       }
     elsif !open_bet.expired?
       status = {mode: 'open',

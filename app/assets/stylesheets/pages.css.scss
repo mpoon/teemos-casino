@@ -2,18 +2,53 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.embeds {
-    float: left;
+// colors
+$green: #69b034;
+$dark-green: #438812;
+
+$nav-color: $green;
+$nav-accent-color: $dark-green;
+
+// mixin
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;
 }
 
-// Betting states
-.betting-open {
-
-}
-.betting-closed {
-  opacity: 0.4;
+// type
+body {
+  color: #444;
 }
 
+h4 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+form {
+  p, label {
+    color: #aaa;
+  }
+}
+
+.content a {
+  color: #ec710e;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.purple {
+  color: #785ab0;
+}
+.blue {
+  color: #4a81dc;
+}
+
+// buttons
 .btn-blue {
   background-color: #389cc6;
   border-color: #389cc6;
@@ -68,41 +103,411 @@ fieldset[disabled] .btn-purple.active {
   border-color: #ac1bbd;
 }
 
-html,body{height:100%;}
+html,body{
+  height:100%;
+  background: #eee;
+}
 
 .wrapper {
-  margin: 0 auto;
+  width: 100%;
   height: 100%;
+  overflow: auto;
+  position: relative;
 }
-.navbar {
+
+$nav-height: 50px;
+header {
+  .nav-vertical-align {
+    height: $nav-height;
+    line-height: $nav-height;
+    display: block;
+  }
+
   margin-bottom: 0px;
+  background: $nav-color;
+  @extend .nav-vertical-align;
+
+  a {
+    color: #f0f0f0;
+
+    &:hover {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+
+  .main-menu {
+    float: left;
+
+    .logo {
+      width: 180px;
+      margin-left: 20px;
+      font-size: 18px;
+      float: left;
+      color: #fff;
+      @extend .nav-vertical-align;
+    }
+
+    .nav-menu {
+      float: left;
+      margin-left: -30px;
+      margin-bottom: 0;
+
+      li {
+        display: block;
+        float: left;
+        margin-left: 30px;
+
+        a {
+          font-size: 12px;
+          font-weight: bold;
+          @extend .nav-vertical-align;
+          @include border-box;
+
+          &.selected {
+            color: #fff;
+            border-bottom: 4px solid $nav-accent-color
+          }
+        }
+      }
+    }
+  }
+
+  .user-menu {
+    float: right;
+    @extend .nav-vertical-align;
+
+    .connect-link {
+      display: inline-block;
+      margin-right: 20px
+    }
+  }
 }
+
 .content {
+  margin: 0 20px 20px;
   position: absolute;
-  left: 0px;
-  right: 0px;
-  margin: 0;
-  overflow: hidden;
-  top: 52px;
-  bottom: 110px;
-}
-.stream {
-  height: 100%;
-  position: absolute;
+  top: $nav-height;
+  bottom: 0;
   left: 0;
-  right: 325px;
-  overflow: hidden;
-}
-.chat {
-  float: right;
-  width: 325px;
-  height: 100%;
-}
-.control-panel {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  overflow: hidden;
-  min-height: 100px;
+  right: 0;
+
+  $left-column-width: 200px;
+  $right-column-width: 350px;
+  $gutter: 20px;
+
+  $top-height: 60px;
+  $bottom-height: 180px;
+
+  .column {
+    position: relative;
+  }
+
+  .column-head {
+    height: $top-height;
+    line-height: $top-height;
+
+    p {
+      color: #777;
+      font-size: 11px;
+    }
+  }
+
+  .top {
+    height: $top-height;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .middle {
+    margin: $top-height 0 $bottom-height + $gutter;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+  }
+
+  .bottom {
+    height: $bottom-height;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .left-container {
+    width: $left-column-width;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .center-container {
+    margin: 0 $right-column-width + $gutter 0 $left-column-width + $gutter;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    .column-head {
+      ul {
+        margin: 0 0 0 -20px;
+        padding: 0;
+
+        li {
+          display: inline-block;
+          margin-left: 20px;
+
+          p {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .stream {
+      object {
+        display: block;
+      }
+    }
+  }
+
+  .right-container {
+    width: $right-column-width;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    .chat {
+      &.middle {
+        margin-bottom: 0;
+      }
+    }
+
+    .chat-container {
+      height: 100%;
+    }
+  }
+
+  .card {
+    background: #fff;
+    font-size: 12px;
+    overflow: auto;
+
+    &.highlight {
+      -webkit-box-shadow: 0px 0px 0px 2px rgba(108,176,59,1);
+      -moz-box-shadow: 0px 0px 0px 2px rgba(108,176,59,1);
+      box-shadow: 0px 0px 0px 2px rgba(108,176,59,1);
+    }
+
+    .heading {
+      padding: 0 10px;
+      height: 29px;
+      line-height: 29px;
+      border-bottom: 1px solid #ddd;
+      font-size: 11px;
+      color: #bbbbbb;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .card-content {
+      position: absolute;
+      top: 30px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      @include border-box;
+
+      &.no-gutter {
+        padding: 0;
+      }
+
+      .border {
+        padding-top: 25px;
+        margin-top: 30px;
+        border-top: 2px solid #ddd;
+      }
+    }
+  }
+
+  .betting-status-container {
+
+    .better-list {
+      float: left;
+      margin-left: 1.5%;
+      width: 31%;
+
+      &.purple-betters {
+        h4 {
+          color: #785ab0;
+        }
+      }
+
+      &.blue-betters {
+        h4 {
+          color: #4a81dc;
+        }
+      }
+
+      h4 {
+        padding: 10px 10px 0;
+      }
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+
+        &:hover {
+          background: #f5f5f5;
+        }
+
+        .name, .score {
+          width: 50%;
+          float: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .name {
+          font-weight: bold;
+          color: #ec710e;
+        }
+
+        .score {
+          text-align: right;
+          color: #777;
+        }
+      }
+    }
+  }
+
+  // betting
+  .bet-controller {
+    position: relative;
+    margin: 60px 0 0 0;
+    height: 320px;
+
+    .card-content {
+      position: relative;
+      top: 0;
+    }
+
+    .bet {
+      .countdown {
+        .clock {
+          text-align: center;
+          font-size: 36px;
+          font-weight: bold;
+          margin: 15px 0 20px;
+        }
+      }
+
+      form {
+        .available {
+          p {
+            margin: 0 0 5px;
+            font-size: 11px;
+          }
+        }
+
+        .bet-amount {
+          .amount {
+            outline: 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            color: #444;
+            padding: 5px;
+            @include border-box;
+
+            &:focus {
+              border: 1px solid $green;
+            }
+          }
+        }
+
+        .options {
+          button {
+            outline: none;
+            border: 0;
+            display: block;
+            width: 100%;
+            height: 36px;
+            line-height: 32px;
+            margin-top: 10px;
+            color: #fff;
+            font-weight: bold;
+
+            &.first {
+              background: #785ab0;
+              border-bottom: 4px solid #5c448c;
+
+              &:active {
+                background: #5c448c;
+              }
+            }
+
+            &.second {
+              background: #4a81dc;
+              border-bottom: 4px solid #3864ac;
+
+              &:active {
+                background: #3864ac;
+              }
+            }
+          }
+        }
+      }
+
+      &.betting-closed {
+        .desc {
+          font-weight: bold;
+          height: 25px;
+          line-height: 25px;
+          text-align: center;
+          background: #f5f5f5;
+        }
+
+        .bet-status {
+          margin-top: 20px;
+
+          .bet-amount {
+            text-align: center;
+            height: 25px;
+            line-height: 25px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+          }
+          .purple-bet-amount {
+            background: #785ab0;
+          }
+          .blue-bet-amount {
+            background: #4a81dc;
+          }
+          .odds {
+            text-align: center;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
 }

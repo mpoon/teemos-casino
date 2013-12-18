@@ -1,0 +1,97 @@
+.ng ng-if="!showBetControls"
+  .heading
+    span Login to bet!
+
+.ng ng-if="showBetControls" ng-switch="" on="betMode"
+  .ng ng-switch-when="open"
+    .heading
+      span Your Bet
+
+  .ng ng-switch-when="closed"
+    .heading
+      span Betting closed
+
+    .card-content
+      .bet.betting-closed.main-bet.border style="display: block"
+        .your-bet ng-if="bet.status == 'placed'"
+          h4 Bet
+          .desc
+            ' {{bet.amount | number}} on
+            span class="{{ bet.team | lowercase }}"
+              | {{bet.team}}
+
+        .bet-status
+          h4 Bet Stats
+          .purple-bet-amount.bet-amount
+            | 1,000
+          .blue-bet-amount.bet-amount
+            | 2,000
+          .odds
+            span.purple
+              | {{odds.purple}}
+            | :
+            span.blue
+              | {{odds.blue}}
+
+  .card-content
+    .bet.betting-open.main-bet style="display: none"
+      .countdown
+        h4 Betting Time!
+
+        .clock
+          | 2:59
+
+      .wager
+        h4 Your Wager
+
+        form
+          .available
+            p 0 Mushrooms Available
+
+          .bet-amount
+            input.amount type="text" placeholder="Number of Mushrooms to Bet"
+
+          .options
+            button.first Option
+            button.second Option
+
+    .bet.betting-closed.main-bet style="display: none"
+      .your-bet
+        h4 Bet 1
+        .desc
+          | 50,000 on
+          span.purple Purple
+
+      .bet-status
+        h4 Bet 1 Stat
+        .purple-bet-amount.bet-amount
+          | 1,000
+        .blue-bet-amount.bet-amount
+          | 2,000
+        .odds
+          span.purple 1
+          | :
+          span.blue 2
+
+    // if sidebet add border class
+    .bet.betting-open.main-bet ng-switch-when="open" style="display: block"
+      .countdown
+        h4 Betting Time!
+
+        .clock
+          | {{countdown | time}}
+
+      .wager
+        h4 Your Wager
+
+        form
+          .available
+            p
+              | {{wallet | number}} Mushrooms Available
+
+          .bet-amount
+            input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms to Bet"
+
+          .options
+            button.first ng-click="makeBet(bet.amount, 'purple')" Purple
+            button.second ng-click="makeBet(bet.amount, 'blue')" Blue

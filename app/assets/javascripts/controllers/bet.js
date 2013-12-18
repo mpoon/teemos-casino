@@ -1,7 +1,7 @@
 /*global mixpanel,machina*/
 angular.module('salty-spork').controller('BettingCtrl',
-  ['$scope', '$resource', '$timeout', 'user', 'pusher', 'betMode', 'bettingFsm',
-  function BettingCtrl($scope, $resource, $timeout, user, pusher, betMode, bettingFsm) {
+  ['$scope', '$resource', '$timeout', 'user', 'betMode', 'bettingFsm',
+  function BettingCtrl($scope, $resource, $timeout, user, betMode, bettingFsm) {
 
   var teams = {
     "blue": "Blue",
@@ -16,8 +16,9 @@ angular.module('salty-spork').controller('BettingCtrl',
   });
 
   $scope.currentGameId = 0;
+  $scope.wallet = 0;
   $scope.betMode = "closed";
-  $scope.odds = {blue: 0, purple: 0}
+  $scope.odds = {blue: 0, purple: 0};
 
   var Bet = {
     init: function() {
@@ -35,7 +36,9 @@ angular.module('salty-spork').controller('BettingCtrl',
     reset: function() {
       $scope.bet = {
         team: null,
-        amount: 0,
+        // Allow the placeholder on the input to work
+        // by setting undefined instead of 0
+        amount: undefined,
         gameId: 0,
         status: null
       };
@@ -59,7 +62,23 @@ angular.module('salty-spork').controller('BettingCtrl',
     // TODO: show loading spinner
   };
 
+  // Validate bet model on change
+  $scope.betAmountChange = function() {
+    console.log('change', $scope.bet.amount)
+    var num = parseInt($scope.bet.amount, 10);
+
+    if ($scope.bet.amount && _.isNaN(num)) {
+      // If not undefined (user input)
+      $scope.bet.amount = 0;
+    } else if (num > $scope.wallet) {
+      $scope.bet.amount = $scope.wallet;
+    } else {
+      $scope.bet.amount = num;
+    }
+  };
+
   var countdownInterval;
+  $scope.countdown = 0;
   var updateCountdown = function(expires) {
     var now = expires - Date.now();
     if (now > 0) {
@@ -74,8 +93,8 @@ angular.module('salty-spork').controller('BettingCtrl',
     $scope.$apply(function() {
       console.debug("got betting open msg from fsm:", event);
       $scope.betMode = "open";
-      $scope.odds.blue = 0
-      $scope.odds.purple = 0
+      $scope.odds.blue = 0;
+      $scope.odds.purple = 0;
 
       clearInterval(countdownInterval);
       countdownInterval = setInterval(_.bind(updateCountdown, null, event.expires), 100);
@@ -118,6 +137,12 @@ angular.module('salty-spork').controller('BettingCtrl',
     $scope.$apply(function() {
       $scope.odds.blue = odds.blue;
       $scope.odds.purple = odds.purple;
+    });
+  });
+
+  user.on('wallet', function(amount) {
+    $scope.$apply(function() {
+      $scope.wallet = amount;
     });
   });
 }]);

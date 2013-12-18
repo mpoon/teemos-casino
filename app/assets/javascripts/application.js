@@ -35,8 +35,8 @@
 
 // Angular templates
 //= require_tree ../templates
+//= require directives
+//= require filters
 //= require core
 //= require_tree ./controllers
 //= require_tree ./services
-//= require directives
-//= require filters
