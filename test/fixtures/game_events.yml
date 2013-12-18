@@ -35,3 +35,12 @@ four_end:
   game_id: 4
   kind: game_end
   team: purple
+
+five_start:
+  game_id: 5
+  kind: game_start
+
+five_end:
+  game_id: 5
+  kind: game_end
+  team: purple

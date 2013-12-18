@@ -21,3 +21,8 @@ single_bet:
   game_id: 4
   event: game
   state: open
+
+single_loser:
+  game_id: 5
+  event: game
+  state: open

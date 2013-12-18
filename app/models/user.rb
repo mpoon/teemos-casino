@@ -45,6 +45,12 @@ class User < ActiveRecord::Base
     }
   end
 
+  # By placing bets, users increase their minimum wallet
+  # if they go bankrupt.
+  def wallet_minimum
+    (bet_count / 5) + 10
+  end
+
   def update_wallet!(change, reason)
     message = nil
     case reason
@@ -52,6 +58,8 @@ class User < ActiveRecord::Base
     when :bet_canceled
     when :payout
       message = "You won #{change} mushrooms!"
+    when :bust
+      message = "You went bust! Here's #{change} mushrooms to get you back on your feet!"
     else
       raise ArgumentError.new("Unknown reason!")
     end
@@ -59,6 +67,8 @@ class User < ActiveRecord::Base
     increment_with_sql!(:wallet, change)
     PusherClient.message(self, "wallet_update", {wallet: self.wallet, message: message})
   end
+
+  private
 
   # Rails' #increment does not handle concurrency
   # http://apidock.com/rails/ActiveRecord/Base/increment%21#1414-increment-by-sql-for-PG

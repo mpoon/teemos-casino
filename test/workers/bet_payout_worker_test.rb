@@ -31,6 +31,21 @@ class BetPayoutWorkerTest < ActiveSupport::TestCase
     assert_equal expected, wallet
   end
 
+  test "pays out welfare if loser goes bust" do
+    bet = bets(:loser)
+    open_bet = bet.open_bet
+    user = bet.user
+
+    user.update!(wallet: 1)
+
+    expected = user.wallet_minimum
+
+    @worker.perform(open_bet.id)
+    wallet = User.find(user).wallet
+
+    assert_equal expected, wallet
+  end
+
   test "bet is destroyed" do
     refute_empty open_bets(:one).bets
     @worker.perform(open_bets(:one).id)

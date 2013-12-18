@@ -17,3 +17,9 @@ winner:
   amount: 1
   team: purple
   user: bettor_three
+
+loser:
+  open_bet: single_loser
+  amount: 100
+  team: blue
+  user: bettor_four
