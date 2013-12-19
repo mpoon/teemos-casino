@@ -18,6 +18,7 @@ Salts' Ahoy!
   Install dependencies and prepare the database:
 
     cd /vagrant
+    bin/bundle install
     bin/rake db:schema:load
 
   Start the workers (optional)
