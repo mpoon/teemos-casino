@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  before_filter :beta_whitelist, :only => [:create]
 
   def create
     puts auth_hash
@@ -28,13 +27,6 @@ class SessionsController < ApplicationController
   end
 
   protected
-
-  def beta_whitelist
-    if (TeemosCasino::Application.config.beta &&
-      !TeemosCasino::Application.config.beta_whitelist.include?(auth_hash.info.nickname))
-      redirect_to :root
-    end
-  end
 
   def auth_hash
     request.env['omniauth.auth']

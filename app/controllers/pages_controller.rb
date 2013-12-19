@@ -1,9 +1,12 @@
 class PagesController < ApplicationController
+
+  before_filter :require_beta_access, only: :index
+
   def index
-    if TeemosCasino::Application.config.beta && current_user.nil?
-      render :beta_landing
-    else
-      expires_in 10.minutes, public: true
-    end
+    #
+  end
+
+  def landing
+    #
   end
 end
