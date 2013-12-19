@@ -1,5 +1,12 @@
 class PagesController < ApplicationController
+
+  before_filter :require_beta_access, only: :index
+
   def index
-    expires_in 10.minutes, public: true
+    #
+  end
+
+  def landing
+    #
   end
 end

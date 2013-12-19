@@ -11,4 +11,15 @@ module Authentication
       render json: {error: "Unauthorized"}, status: 401
     end
   end
+
+  def require_beta_access
+    if !current_user
+      redirect_to :landing and return
+    end
+
+    if TeemosCasino::Application.config.closed_beta &&
+      !TeemosCasino::Application.config.beta_whitelist.include?(current_user.name)
+      redirect_to :landing and return
+    end
+  end
 end

@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   def create
     puts auth_hash
     user = User.find_or_initialize_by(twitch_id: auth_hash.uid.to_s)

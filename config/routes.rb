@@ -8,6 +8,9 @@ TeemosCasino::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'pages#index'
 
+  # Beta landing roadblock
+  get :landing, to: 'pages#landing'
+
   namespace :api, defaults: {format: :json} do
     resources :game_events, only: [] do
       collection do
