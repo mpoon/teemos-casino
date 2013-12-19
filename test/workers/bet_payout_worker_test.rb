@@ -23,7 +23,7 @@ class BetPayoutWorkerTest < ActiveSupport::TestCase
     user = bet.user
 
     initial = user.wallet
-    expected = initial + (bet.amount * open_bet.odds[bet.team.to_sym]).to_i
+    expected = initial + (bet.amount * open_bet.odds[bet.team.to_sym][:mult]).to_i
 
     @worker.perform(open_bet.id)
     wallet = User.find(user).wallet
@@ -55,7 +55,7 @@ class BetPayoutWorkerTest < ActiveSupport::TestCase
   test "open_bet is resolved" do
     assert_equal "open", open_bets(:one).state
     @worker.perform(open_bets(:one).id)
-    assert_equal "resolved", open_bets(:one).state
+    assert_equal "resolved", open_bets(:one).reload.state
   end
 
   test "updates bet streak" do

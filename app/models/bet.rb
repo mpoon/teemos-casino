@@ -9,4 +9,5 @@ class Bet < ActiveRecord::Base
   validates :team, inclusion: { in: %w(purple blue),
     message: "%{value} is not a valid team" }
   validates_uniqueness_of :open_bet_id, :scope => :user_id
+  validates :user_id, presence: true
 end

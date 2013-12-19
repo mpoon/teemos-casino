@@ -87,9 +87,14 @@ See the [migrations guide](http://guides.rubyonrails.org/migrations.html) for mo
 
 ### Vagrant
 
-#### Re-Provisioning Vagrant
+#### Re-Provisioning
 
   If `vagrant up` didn't provision for whatever reason
 
     vagrant provision
 
+#### Time
+
+  Sometimes the clock gets out of sync
+
+    sudo ntpdate -s time.nist.gov
