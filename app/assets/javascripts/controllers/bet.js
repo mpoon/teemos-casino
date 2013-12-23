@@ -122,7 +122,6 @@ angular.module('salty-spork').controller('BettingCtrl',
     $scope.$apply(function() {
       console.debug("got betting closed msg from fsm:", event);
       $scope.betMode = "closed";
-      Bet.reset();
     });
   });
 
