@@ -14,26 +14,16 @@
     .user-menu ng-controller="UserCtrl"
       .ng ng-include="'user.html'"
     /! .navbar-collapse
+
   .content
     .left-container.column
-      .column-head.top
-        p Make Free Virtual Bets On LOL Games
-
       .bet-controller.card.middle.highlight ng-controller="BettingCtrl"
         .ng ng-include="'bet.html'"
 
       .notification.bottom
 
     .center-container.column
-      = render "shared/sharing"
-      .column-head.top
-        ul
-          li
-            p Users Watching: {Count}
-          li
-            p Music: {Title of Music} - {Artist}
-
-      .stream.card.middle
+      .stream-container.card.middle
         object#live_embed_player_flash bgcolor="#000000" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=teemoscasino" height="100%" type="application/x-shockwave-flash" width="100%"
           param name="allowFullScreen" value="true"
           param name="allowScriptAccess" value="always"
@@ -42,6 +32,16 @@
           param name="flashvars" value="hostname=www.twitch.tv&amp;channel=teemoscasino&amp;auto_play=true&amp;start_volume=25"
 
       .betting-status.card.bottom
+        .meta-info-container
+          ul.meta-info
+            li
+              p Users Watching: {Count}
+            li
+              p Music: {Title of Music} - {Artist}
+
+          .share
+            = render "shared/sharing"
+
         .heading
           span Betters
 
@@ -74,13 +74,9 @@
                     | 9000000
 
     .right-container.column
-      .column-head.top
-        .social
-
       .chat.card.middle
         .heading
           span Chat
         .card-content
           .chat-container
             iframe#chat_embed.embeds frameborder="0" height="100%" scrolling="no" src="http://twitch.tv/chat/embed?channel=teemoscasino&amp;popout_chat=true" width="100%"
-
