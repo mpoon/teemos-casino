@@ -8,7 +8,7 @@ class TeemoBotWorkerTest < ActiveSupport::TestCase
     assert_includes 5..15, amount
 
     amount = @worker.bet_amount(0)
-    assert_includes 0..0, amount
+    assert_includes 1..1, amount
 
     amount = @worker.bet_amount(100)
     assert_includes 50..100, amount

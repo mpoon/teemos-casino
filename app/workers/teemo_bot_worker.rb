@@ -50,6 +50,7 @@ class TeemoBotWorker
     min = (mid * 0.5).to_i
     max = [(mid * 1.5).to_i, MAX_BET].min
 
-    rand(min..max)
+    # bet at least one mushroom
+    [1, rand(min..max)].max
   end
 end
