@@ -117,6 +117,9 @@ html,body{
 
 $nav-height: 50px;
 header {
+  position: relative;
+  z-index: 1;
+
   .nav-vertical-align {
     height: $nav-height;
     line-height: $nav-height;
