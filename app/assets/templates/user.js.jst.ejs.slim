@@ -8,9 +8,8 @@ div ng-if="loggedIn"
       .user-dropdown
         | {{user.name}}
 
-      ul.user-dropdown-menu
-        li
-          a href="/logout" target="_self" Log Out
+      .user-dropdown-menu
+        a href="/logout" target="_self" Log Out
 
 a.connect-link href="/auth/twitchtv" ng-if="!loggedIn" target="_self"
   = image_tag 'twitchconnect.png'

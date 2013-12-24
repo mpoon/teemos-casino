@@ -239,9 +239,17 @@ header {
             min-width: 100px;
             width: 100%;
             background: $dark-green;
-            padding: 20px;
             right: 0;
             line-height: 1;
+
+            a {
+              padding: 20px;
+              display: block;
+
+              &:hover {
+                background: darken($dark-green, 4);
+              }
+            }
           }
         }
       }
