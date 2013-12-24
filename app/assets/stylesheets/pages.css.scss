@@ -113,6 +113,8 @@ html,body{
   height: 100%;
   overflow: auto;
   position: relative;
+  background: url('/assets/layout_sheemo.png') left bottom no-repeat;
+  min-height: 680px;
 }
 
 $nav-height: 50px;
@@ -247,10 +249,57 @@ header {
   }
 }
 
+.banner-notification {
+  height: 40px;
+  background: #ddd;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 20px;
+
+  .notification-content {
+    text-align: center;
+    line-height: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #999;
+  }
+}
+
+.bottom-notification-container {
+  width: 100%;
+  position: absolute;
+  bottom: 125px;
+
+  .bottom-notification {
+    background: #000;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  .notification-content {
+    font-size: 12px;
+    color: #fff;
+    padding: 10px 10px 10px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .notification-arrow {
+    width: 100%;
+    height: 15px;
+    background: url('/assets/notification_arrow.png') 160px 0 no-repeat;
+  }
+}
+
 .content {
   margin: 0 20px 20px;
   position: absolute;
-  top: $nav-height;
+  top: $nav-height + 60px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -285,7 +334,7 @@ header {
   }
 
   .middle {
-    margin: $top-height 0 $bottom-height + $gutter * 2 + 20px; // meta info height
+    margin: 0 0 $bottom-height + $gutter * 2 + 20px; // meta info height
     position: absolute;
     top: 0;
     left: 0;
@@ -500,8 +549,8 @@ header {
   // betting
   .bet-controller {
     position: relative;
-    margin: 60px 0 0 0;
     height: 320px;
+    z-index: 1;
 
     .card-content {
       position: relative;

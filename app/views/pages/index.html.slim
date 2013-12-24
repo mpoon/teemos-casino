@@ -4,23 +4,27 @@
       a.logo href="#"
         | Teemo's Casino
 
-      ul.nav-menu.clearfix
-        li
-          a.selected href="#" Home
-        li
-          a href="#" Leaderboard
-
     /! Collect the nav links, forms, and other content for toggling
     .user-menu ng-controller="UserCtrl"
       .ng ng-include="'user.html'"
     /! .navbar-collapse
 
+  .banner-notification
+    .notification-content
+      | bacon dreamcatcher gluten-free messenger bag yolo
+
   .content
     .left-container.column
-      .bet-controller.card.middle.highlight ng-controller="BettingCtrl"
+      .bet-controller.card.middle ng-controller="BettingCtrl"
         .ng ng-include="'bet.html'"
 
-      .notification.bottom
+      .bottom-notification-container
+        .bottom-notification
+          .notification-content
+            p
+              | Hoodie Godard Helvetica, before they sold out gluten-free pour over viral roof party.
+
+        .notification-arrow
 
     .center-container.column
       .stream-container.card.middle
