@@ -18,7 +18,7 @@
       .bet-controller.card.middle ng-controller="BettingCtrl"
         .ng ng-include="'bet.html'"
 
-      .bottom-notification-container
+      .bottom-notification-container.emergency
         .bottom-notification
           .notification-content
             p
@@ -49,7 +49,7 @@
         .heading
           span Betters
 
-        .card-content.no-gutter
+        .card-content-container.no-gutter
           .betting-status-container.clearfix
             .season-ranking.better-list
               h4
@@ -81,6 +81,6 @@
       .chat.card.middle
         .heading
           span Chat
-        .card-content
+        .card-content-container
           .chat-container
             iframe#chat_embed.embeds frameborder="0" height="100%" scrolling="no" src="http://twitch.tv/chat/embed?channel=teemoscasino&amp;popout_chat=true" width="100%"

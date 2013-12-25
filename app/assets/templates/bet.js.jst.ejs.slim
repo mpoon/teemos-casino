@@ -5,44 +5,77 @@
 .ng ng-if="showBetControls" ng-switch="" on="betMode"
   .ng ng-switch-when="open"
     .heading
-      span Your Bet
+      span Betting Time
 
   .ng ng-switch-when="closed"
     .heading
       span Betting closed!
 
-    .card-content
-      .bet.betting-closed.main-bet.border style="display: block"
-        .your-bet ng-if="bet.status == 'placed'"
-          h4 Bet
-          .desc
-            ' {{bet.amount | number}} on
-            span class="{{ bet.team | lowercase }}"
-              | {{bet.team}}
+    .card-content-container
+      .bet.betting-closed.main-bet style="display: block"
+        .your-bet.card-content ng-if="bet.status == 'placed'"
+          h4 Your Bet
+          .status
+            p.number-amount
+              | {{bet.amount | number}}
+            p.desc
+              | on
+              span class="{{ bet.team | lowercase }}"
+                | &nbsp;{{bet.team}}
 
-        .bet-status
+        .your-bet.card-content ng-if="bet.status != 'placed'"
+          h4 Match In Progress
+          p.status-info
+            | The match is currently in progress. Please enjoy the stream and bet on the next match!
+
+        .bet-status.card-content
           h4 Bet Stats
-          .purple-bet-amount.bet-amount
-            | {{odds.purple.pool | number}}
-          .blue-bet-amount.bet-amount
-            | {{odds.blue.pool | number}}
-          .odds
+          p.number-amount
+            span.purple-bet-amount.bet-amount
+              | {{odds.purple.pool | number}}
+            span.blue-bet-amount.bet-amount
+              | {{odds.blue.pool | number}}
+
+        .bet-reward-multipliers.card-content
+          h4 Reward Multipliers
+          p.number-amount
             span.purple
               | {{odds.purple.mult}}
-            | :
+            | &nbsp;:&nbsp;
             span.blue
               | {{odds.blue.mult}}
 
-  .card-content
+  // if user is not logged in
+  .card-content-container
     .bet.betting-open.main-bet style="display: none"
-      .countdown
-        h4 Betting Time!
+      .not-logged-in.card-content
+        h4 Log In To Bet
+        p.status-info
+          a href="/auth/twitchtv" target="_self"
+            | Connect your Twitch account 
+          | to join and start betting!
 
+      .wager.card-content
+        h4 Time Left To Bet
         .clock
           | 2:59
 
-      .wager
+      .bet-reward-multipliers.card-content
+        h4 Reward Multipliers
+        p.number-amount
+          span.purple
+            | {{odds.purple.mult}}
+          | &nbsp;:&nbsp;
+          span.blue
+            | {{odds.blue.mult}}
+
+  .card-content-container
+    .bet.betting-open.main-bet style="display: none"
+      .wager.card-content
         h4 Your Wager
+
+        .clock
+          | Time Left - 2:59
 
         form
           .available
@@ -54,6 +87,15 @@
           .options
             button.first Option
             button.second Option
+
+      .bet-reward-multipliers.card-content
+        h4 Reward Multipliers
+        p.number-amount
+          span.purple
+            | {{odds.purple.mult}}
+          | &nbsp;:&nbsp;
+          span.blue
+            | {{odds.blue.mult}}
 
     .bet.betting-closed.main-bet style="display: none"
       .your-bet
@@ -75,14 +117,11 @@
 
     // if sidebet add border class
     .bet.betting-open.main-bet ng-switch-when="open" style="display: block"
-      .countdown
-        h4 Betting Time!
+      .wager.card-content
+        h4 Your Wager
 
         .clock
-          | {{countdown | time}}
-
-      .wager
-        h4 Your Wager
+          | Time Left - {{countdown | time}}
 
         form
           .available
@@ -95,3 +134,12 @@
           .options
             button.first ng-click="makeBet(bet.amount, 'purple')" Purple
             button.second ng-click="makeBet(bet.amount, 'blue')" Blue
+
+      .bet-reward-multipliers.card-content
+        h4 Reward Multipliers
+        p.number-amount
+          span.purple
+            | {{odds.purple.mult}}
+          | &nbsp;:&nbsp;
+          span.blue
+            | {{odds.blue.mult}}
