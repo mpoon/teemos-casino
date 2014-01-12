@@ -9,7 +9,7 @@
 
   .ng ng-switch-when="closed"
     .heading
-      span Betting closed
+      span Betting closed!
 
     .card-content
       .bet.betting-closed.main-bet.border style="display: block"
@@ -49,7 +49,7 @@
             p 0 Mushrooms Available
 
           .bet-amount
-            input.amount type="text" placeholder="Number of Mushrooms to Bet"
+            input.amount type="text" placeholder="Number of Mushrooms"
 
           .options
             button.first Option
@@ -90,7 +90,7 @@
               | {{wallet | number}} Mushrooms Available
 
           .bet-amount
-            input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms to Bet"
+            input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
 
           .options
             button.first ng-click="makeBet(bet.amount, 'purple')" Purple
