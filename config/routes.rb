@@ -24,6 +24,8 @@ TeemosCasino::Application.routes.draw do
     end
 
     resource :bet, only: [:show, :create]
+
+    resource :bettors, only: [:show]
   end
 
   # Authentication

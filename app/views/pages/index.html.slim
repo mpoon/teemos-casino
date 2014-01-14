@@ -50,32 +50,32 @@
           span Betters
 
         .card-content-container.no-gutter
-          .betting-status-container.clearfix
+          .betting-status-container.clearfix ng-controller="BettorStatusCtrl"
             .season-ranking.better-list
               h4
                 | Season's Top 10
-              ul
+              ul ng-repeat='bettor in seasonTop | orderBy:"-amount"'
                 li
                   .name
-                    | allenhklee
+                    | {{bettor.name}}
                   .score
-                    | 9000000
+                    | {{bettor.amount}}
             .purple-betters.better-list
               h4 Live Bets on Purple
-              ul
+              ul ng-repeat='bettor in purpleLiveBets | orderBy:"-amount"'
                 li
                   .name
-                    | allenhklee
+                    | {{bettor.name}}
                   .score
-                    | 9000000
+                    | {{bettor.amount}}
             .blue-betters.better-list
               h4 Live Bets on Blue
-              ul
+              ul ng-repeat='bettor in blueLiveBets | orderBy:"-amount"'
                 li
                   .name
-                    | allenhklee
+                    | {{bettor.name}}
                   .score
-                    | 9000000
+                    | {{bettor.amount}}
 
     .right-container.column
       .chat.card.middle

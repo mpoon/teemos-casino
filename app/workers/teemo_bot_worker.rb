@@ -36,6 +36,7 @@ class TeemoBotWorker
 
     if bet.team.present?
       bet.save!
+      PusherClient.global('bettor', {name: bet.user.name, amount: bet.amount, team: bet.team})
       logger.info "Placed bet for $#{bet.amount} on #{bet.team}"
     end
   end

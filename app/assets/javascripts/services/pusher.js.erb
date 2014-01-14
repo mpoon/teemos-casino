@@ -23,6 +23,10 @@ angular.module('salty-spork').factory("pusher",
     ee.emit("game_end", message);
   });
 
+  globalChannel.bind('bettor', function(message) {
+    ee.emit("bettor", message);
+  })
+
   user.getStatus.then(function(status) {
     if (!status.loggedIn) return;
     userChannel = pusher.subscribe('user.' + status.user.id);
