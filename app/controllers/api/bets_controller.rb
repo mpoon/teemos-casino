@@ -54,6 +54,8 @@ class Api::BetsController < Api::BaseController
       bet.save!
     end
 
+    PusherClient.global('bettor', {name: bet.user.name, amount: bet.amount, team: bet.team})
+
     current_user.bet_count += 1
     current_user.save
 
