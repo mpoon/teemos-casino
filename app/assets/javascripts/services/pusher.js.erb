@@ -8,7 +8,7 @@ angular.module('salty-spork').factory("pusher",
   var userChannel;
 
   pusher.connection.bind('disconnected', function() {
-    $.notify.error("Oops, your connection may have been interrupted. Reconnecting...");
+    $.speechBubble.write("Oops, your connection may have been interrupted. Reconnecting...");
   });
 
   globalChannel.bind('bet.odds', function(message) {
