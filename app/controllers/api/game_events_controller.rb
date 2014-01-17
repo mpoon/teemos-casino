@@ -23,6 +23,7 @@ class Api::GameEventsController < Api::BaseController
 
     BetUpdateWorker.perform_async(open_bet.id)
     TeemoBotWorker.perform_in(15.seconds, open_bet.id)
+    FakeUserWorker.perform_in(5.seconds, open_bet.id)
 
     render json: {message: "success"}
   end
@@ -37,8 +38,6 @@ class Api::GameEventsController < Api::BaseController
     # TODO: validate team is valid (in model)
     open_bet = OpenBet.find_by(game_id: event.game_id)
     open_bet.update!(state: :closed)
-
-    PusherClient.global('game_end', {game_id: event.game_id})
 
     BetPayoutWorker.perform_async(open_bet.id)
     PlayCommercialWorker.perform_async()

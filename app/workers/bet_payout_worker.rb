@@ -31,5 +31,14 @@ class BetPayoutWorker
     end
 
     open_bet.update!(state: :resolved)
+    
+    top = []
+    topUsers = User.order(wallet: :desc).limit(10)
+
+    topUsers.each do |user|
+      top.push({name: user.name, amount: user.wallet})
+    end
+
+    PusherClient.global('game_end', {game_id: event.game_id, top: top})
   end
 end
