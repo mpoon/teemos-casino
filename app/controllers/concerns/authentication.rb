@@ -13,13 +13,10 @@ module Authentication
   end
 
   def require_beta_access
-    if !current_user
-      redirect_to :landing and return
-    end
-
-    if TeemosCasino::Application.config.closed_beta &&
-      !TeemosCasino::Application.config.beta_whitelist.include?(current_user.name)
-      redirect_to :landing and return
+    if TeemosCasino::Application.config.closed_beta
+      if !current_user || !TeemosCasino::Application.config.beta_whitelist.include?(current_user.name)
+        redirect_to :landing and return
+      end
     end
   end
 end
