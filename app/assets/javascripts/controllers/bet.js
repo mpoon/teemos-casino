@@ -67,7 +67,7 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   $scope.makeBet = function(amount, team) {
     if ($scope.betMode !== "open") {
-      $.notify.error("Betting is closed for the current game");
+      $.speechBubble.write("Betting is closed for the current game");
       return;
     }
 
@@ -127,7 +127,7 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   bettingFsm.on('bet.placed', function(betEvent) {
     $scope.$apply(function() {
-      $.notify.success("Placed a bet for " + betEvent.amount + "!");
+      $.speechBubble.write("Placed a bet for " + betEvent.amount + "!");
       console.debug("we placed a bet wooo!", betEvent);
       mixpanel.track(
         'bet_placed',
@@ -143,7 +143,7 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   bettingFsm.on('bet.error', function(event) {
     $scope.$apply(function() {
-      $.notify.error("Sorry, we had an error placing your bet");
+      $.speechBubble.write("Sorry, we had an error placing your bet");
       console.debug("we got a betting error", event);
     });
   });

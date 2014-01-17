@@ -27,7 +27,8 @@
 
 //= require noty/jquery.noty
 //= require noty/themes.default
-//= require noty/layouts.top
+//= require noty/themes.speechBubble
+//= require noty/layouts.inline
 
 // Application
 // ============

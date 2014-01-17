@@ -9,7 +9,7 @@ angular.module('salty-spork').controller('UserCtrl',
       $scope.$apply(function() {
         $scope.user.wallet = msg.wallet;
         if (msg.message) {
-          $.notify.alert(msg.message);
+          $.speechBubble.write(msg.message);
         }
       });
       user.updateWallet(msg.wallet);
