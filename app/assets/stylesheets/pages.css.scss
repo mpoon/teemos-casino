@@ -508,11 +508,13 @@ header {
 
   .betting-status-container {
     margin-left: -3%;
+    height: 150px;
 
     .better-list {
       float: left;
       margin-left: 3%;
       width: 30%;
+      height: 150px;
 
       &.purple-betters {
         h4 {
@@ -529,6 +531,7 @@ header {
       h4 {
         padding: 10px 10px 0;
         margin-bottom: 5px;
+        height: 23px;
       }
     }
 
@@ -536,6 +539,8 @@ header {
       list-style: none;
       margin: 0;
       padding: 0;
+      height: 120px;
+      overflow: scroll;
 
       li {
         display: block;
