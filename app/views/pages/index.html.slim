@@ -48,24 +48,24 @@
             .season-ranking.better-list
               h4
                 | Season's Top 10
-              ul ng-repeat='bettor in seasonTop | orderBy:"-amount"'
-                li
+              ul
+                li ng-repeat='bettor in seasonTop | orderBy:"-amount"'
                   .name
                     | {{bettor.name}}
                   .score
                     | {{bettor.amount}}
             .purple-betters.better-list
               h4 Live Bets on Purple
-              ul ng-repeat='bettor in purpleLiveBets | orderBy:"-amount"'
-                li
+              ul
+                li ng-repeat='bettor in purpleLiveBets | orderBy:"-amount"'
                   .name
                     | {{bettor.name}}
                   .score
                     | {{bettor.amount}}
             .blue-betters.better-list
               h4 Live Bets on Blue
-              ul ng-repeat='bettor in blueLiveBets | orderBy:"-amount"'
-                li
+              ul
+                li ng-repeat='bettor in blueLiveBets | orderBy:"-amount"'
                   .name
                     | {{bettor.name}}
                   .score
