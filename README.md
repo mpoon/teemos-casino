@@ -67,6 +67,10 @@ Spin up worker dynos
 
   heroku ps:scale worker=1
 
+Spin down worker dynos
+
+  heroku ps:scale worker=0
+
 ### Migrations
 
 Create the migration
