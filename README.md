@@ -71,6 +71,10 @@ Spin down worker dynos
 
   heroku ps:scale worker=0
 
+Turn on closed beta
+
+  heroku config:add CLOSED_BETA=true
+
 ### Migrations
 
 Create the migration

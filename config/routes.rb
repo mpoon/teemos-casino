@@ -32,8 +32,7 @@ TeemosCasino::Application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  # mount Sidekiq::Web => '/debug/sidekiq', constraints: AdminConstraint.new
-  mount Sidekiq::Web => '/debug/sidekiq'
+  mount Sidekiq::Web => '/debug/sidekiq', constraints: AdminConstraint.new
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
