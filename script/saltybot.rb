@@ -3,7 +3,7 @@ require 'optparse'
 
 options = {}
 options[:game_time] = 30
-options[:sleep_time] = 5
+options[:sleep_time] = 15
 
 OptionParser.new do |opts|
   opts.banner = "Usage: saltybot.rb [options]"

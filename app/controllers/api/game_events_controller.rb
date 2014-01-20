@@ -39,6 +39,8 @@ class Api::GameEventsController < Api::BaseController
     open_bet = OpenBet.find_by(game_id: event.game_id)
     open_bet.update!(state: :closed)
 
+    PusherClient.global('game_end', {game_id: event.game_id})
+
     BetPayoutWorker.perform_async(open_bet.id)
     PlayCommercialWorker.perform_async()
 

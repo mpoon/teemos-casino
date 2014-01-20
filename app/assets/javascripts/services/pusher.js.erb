@@ -23,6 +23,10 @@ angular.module('salty-spork').factory("pusher",
     ee.emit("game_end", message);
   });
 
+  globalChannel.bind('season_top', function(message) {
+    ee.emit("season_top", message);
+  });
+
   globalChannel.bind('bettor', function(message) {
     ee.emit("bettor", message);
   })

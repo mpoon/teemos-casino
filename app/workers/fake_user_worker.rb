@@ -15,7 +15,7 @@ class FakeUserWorker
       bet = Bet.new(open_bet: open_bet, user: user)
 
       bet.team = ["blue", "purple"].sample
-      bet.amount = prng.rand(user.wallet) + 1
+      bet.amount = prng.rand(user.wallet + 1) + 1
       user.update_wallet!(-bet.amount, :bet)
       bet.save!
 

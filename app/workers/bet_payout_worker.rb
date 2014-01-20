@@ -39,6 +39,6 @@ class BetPayoutWorker
       top.push({name: user.name, amount: user.wallet})
     end
 
-    PusherClient.global('game_end', {game_id: event.game_id, top: top})
+    PusherClient.global('season_top', {game_id: event.game_id, top: top})
   end
 end
