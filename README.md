@@ -63,6 +63,10 @@ Push to heroku!
 
     git push heroku master
 
+Spin up worker dynos
+
+  heroku ps:scale worker=1
+
 ### Migrations
 
 Create the migration
