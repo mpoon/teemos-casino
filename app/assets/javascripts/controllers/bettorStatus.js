@@ -20,6 +20,10 @@ angular.module('salty-spork').controller('BettorStatusCtrl',
       }
     });
 
+    pusher.on("season_top", function(msg) {
+      $scope.seasonTop = msg.top;
+    });
+
     pusher.on("game_end", function(msg) {
       $scope.purpleLiveBets = [];
       $scope.blueLiveBets = [];
