@@ -25,6 +25,7 @@ angular.module('salty-spork').factory('bettingFsm',
     states: {
       closed: {
         _onEnter: function() {
+          $.speechBubble.write("Betting is closed!");
           console.info("[FSM] Betting closed: gameId=" + this.currentGameId);
           this.emit('betting.closed', {gameId: this.currentGameId});
           this.currentGameId = 0;
@@ -50,6 +51,7 @@ angular.module('salty-spork').factory('bettingFsm',
       open: {
         _onEnter: function() {
           var self = this;
+          $.speechBubble.write("Betting is open. Place your bets!");
           console.info("[FSM] Betting open: gameId=" + this.currentGameId +
                        " expire=" + this.currentBetExpires);
           this.emit('betting.open', {gameId: this.currentGameId, expires: this.currentBetExpires});
@@ -75,6 +77,7 @@ angular.module('salty-spork').factory('bettingFsm',
             console.warn("[FSM] Attempt to expire game with unknown game_id (" + id + ")." +
                           " Transitioning anyway.");
           }
+          $.speechBubble.write("Betting period expired!");
           console.log("Betting period expired!");
           this.transition('closed');
         },
