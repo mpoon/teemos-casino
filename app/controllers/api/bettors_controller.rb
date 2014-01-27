@@ -4,7 +4,12 @@ class Api::BettorsController < Api::BaseController
     status = {purple: [], blue: [], top: []}
     open_bet = OpenBet.where(event: 'game').order(created_at: :desc).limit(1).first
     top = User.order(wallet: :desc).limit(10)
-    active_bets = open_bet.bets || []
+
+    if open_bet.present?
+      active_bets = open_bet.bets
+    else
+      active_bets = []
+    end
 
     active_bets.each do |bet|
       status[bet.team.to_sym].push({name: bet.user.name, amount: bet.amount})
