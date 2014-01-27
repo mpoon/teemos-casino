@@ -284,7 +284,7 @@ header {
   .bottom-notification {
     background: #000;
     width: 100%;
-    opacity: 0.92;
+    opacity: 0.9;
   }
 
   .notification-content {
@@ -317,7 +317,7 @@ header {
 .content {
   margin: 0 20px 20px;
   position: absolute;
-  top: $nav-height + 60px;
+  top: $nav-height + 20px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -352,7 +352,7 @@ header {
   }
 
   .middle {
-    margin: 0 0 $bottom-height + $gutter * 2 + 20px; // meta info height
+    margin: 0 0 $bottom-height + $gutter * 2; // meta info height
     position: absolute;
     top: 0;
     left: 0;
@@ -415,7 +415,7 @@ header {
     height: 30px;
     overflow: hidden;
     position: absolute;
-    top: -45px;
+    top: -35px;
     left: 0;
     right: 0;
 
@@ -438,6 +438,10 @@ header {
       position: absolute;
       right: 0;
       top: 5px;
+
+      a {
+        margin-left: 5px;
+      }
     }
   }
 
@@ -481,9 +485,35 @@ header {
       line-height: 29px;
       border-bottom: 1px solid #ddd;
       font-size: 11px;
-      color: #bbbbbb;
       text-transform: uppercase;
       font-weight: bold;
+    }
+
+    .tabs {
+      color: #bbb;
+      margin-left: -10px;
+
+      .active {
+        color: #444;
+
+        &:hover {
+          color: #444;
+        }
+      }
+
+      span {
+        padding: 0 10px;
+        border-right: 1px solid #ddd;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        &:hover {
+          cursor: pointer;
+          color: #ec710e;
+        }
+      }
     }
 
     .card-content-container {
@@ -572,7 +602,7 @@ header {
   // betting
   .bet-controller {
     position: relative;
-    height: 320px;
+    max-height: 380px;
     z-index: 1;
 
     .card-content-container {
@@ -595,8 +625,11 @@ header {
         margin-bottom: 10px;
       }
 
-      .wager, .not-logged-in {
+      .not-logged-in {
         border-bottom: 1px solid #ddd;
+        .clock {
+          font-size: 24px;
+        }
       }
 
       form {
@@ -665,7 +698,7 @@ header {
         font-size: 22px;
       }
 
-      .your-bet, .bet-status {
+      .your-bet, .bet-status, .wager {
         border-bottom: 1px solid #ddd;
       }
 
