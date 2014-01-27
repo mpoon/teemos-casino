@@ -9,16 +9,12 @@
       .ng ng-include="'user.html'"
     /! .navbar-collapse
 
-  .banner-notification
-    .notification-content
-      | bacon dreamcatcher gluten-free messenger bag yolo
-
   .content
     .left-container.column
       .bet-controller.card.middle ng-controller="BettingCtrl"
         .ng ng-include="'bet.html'"
 
-      .bottom-notification-container.emergency
+      .bottom-notification-container
 
     .center-container.column
       .stream-container.card.middle
@@ -38,10 +34,16 @@
               p Music: {Title of Music} - {Artist}
 
           .share
-            = render "shared/sharing"
+            a href="http://www.twitch.tv/teemoscasino"
+              img src="assets/share_gl.png"
+            a href="http://www.twitter.com/teemoscasino"
+              img src="assets/share_tw.png"
+            a href="http://www.facebook.com/teemoscasino"
+              img src="assets/share_fb.png"
 
-        .heading
-          span Betters
+        .heading.tabs
+          span.active Main Betters
+          span Side Betters
 
         .card-content-container.no-gutter
           .betting-status-container.clearfix ng-controller="BettorStatusCtrl"
