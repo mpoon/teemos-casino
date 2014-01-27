@@ -14,4 +14,9 @@ angular.module('salty-spork').controller('UserCtrl',
       });
       user.updateWallet(msg.wallet);
     });
+
+    var init = function() {
+      $.speechBubble.write("Welcome to Teemo's Casino!");
+    };
+    init();
   }]);
