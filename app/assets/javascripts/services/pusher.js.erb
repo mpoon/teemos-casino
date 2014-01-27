@@ -3,7 +3,7 @@ angular.module('salty-spork').factory("pusher",
   ['$http', '$rootScope', 'user', function($http, $rootScope, user) {
 
   var ee = new EventEmitter();
-  var pusher = new window.Pusher('9082340987');
+  var pusher = new window.Pusher('<%= Pusher.key %>');
   var globalChannel = pusher.subscribe('global');
   var userChannel;
 
