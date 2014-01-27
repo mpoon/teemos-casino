@@ -1,14 +1,14 @@
 development:
-  app_id: 64407
-  key: 4f02817651c1c3ebfcf0
-  secret: 5f8eb651d6a8f01ecd02
+  app_id: 64425
+  key: 44fbce408eebd23141d2
+  secret: 072e31c4aa52d70343e6
 
 test:
-  app_id: 64407
-  key: 4f02817651c1c3ebfcf0
-  secret: 5f8eb651d6a8f01ecd02
+  app_id: 64425
+  key: 44fbce408eebd23141d2
+  secret: 072e31c4aa52d70343e6
 
 production:
-  app_id: 64407
-  key: 4f02817651c1c3ebfcf0
-  secret: 5f8eb651d6a8f01ecd02
+  app_id: 64424
+  key: de37ba298ac1b3c86b28
+  secret: 35cd6111439c15d5d988
