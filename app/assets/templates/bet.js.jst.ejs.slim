@@ -51,6 +51,7 @@
             .available
               p
                 | {{wallet | number}} Mushrooms Available
+<<<<<<< HEAD
 
             .bet-amount
               input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
@@ -68,6 +69,25 @@
             span.blue
               | {{odds.blue.mult}}
 
+=======
+
+            .bet-amount
+              input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
+
+            .options
+              button.first ng-click="makeBet(bet.amount, 'purple')" Purple
+              button.second ng-click="makeBet(bet.amount, 'blue')" Blue
+
+        .bet-reward-multipliers.card-content
+          h4 Reward Multipliers
+          p.number-amount
+            span.purple
+              | {{odds.purple.mult}}
+            | &nbsp;:&nbsp;
+            span.blue
+              | {{odds.blue.mult}}
+
+>>>>>>> f07bb9817ed12db50436ffd01dfcbed2af39b3fa
   .ng ng-switch-when="closed"
     .card-content-container
       .bet.betting-closed.main-bet style="display: block"
