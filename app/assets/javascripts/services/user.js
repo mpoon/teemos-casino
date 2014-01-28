@@ -12,7 +12,7 @@ angular.module('salty-spork').factory('user',
 
       _.defer(function() {
         ee.updateWallet(status.user.wallet);
-      })
+      });
 
       mixpanel.track(
         'login_success',

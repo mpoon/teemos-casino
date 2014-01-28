@@ -5,7 +5,7 @@ angular.module('salty-spork').controller('UserCtrl',
       $scope.user = status.user;
     });
 
-    pusher.on("wallet_update", function(msg) {
+    pusher.on('wallet_update', function(msg) {
       $scope.$apply(function() {
         $scope.user.wallet = msg.wallet;
         if (msg.message) {
@@ -16,7 +16,7 @@ angular.module('salty-spork').controller('UserCtrl',
     });
 
     var init = function() {
-      $.speechBubble.write("Welcome to Teemo's Casino!");
+      $.speechBubble.write('Welcome to Teemo\'s Casino!');
     };
     init();
   }]);

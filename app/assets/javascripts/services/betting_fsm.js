@@ -25,22 +25,22 @@ angular.module('salty-spork').factory('bettingFsm',
     states: {
       closed: {
         _onEnter: function() {
-          $.speechBubble.write("Betting is closed!");
-          console.info("[FSM] Betting closed: gameId=" + this.currentGameId);
+          $.speechBubble.write('Betting is closed!');
+          console.info('[FSM] Betting closed: gameId=' + this.currentGameId);
           this.emit('betting.closed', {gameId: this.currentGameId});
           this.currentGameId = 0;
           this.currentBetExpires = 0;
         },
         placeBet: function() {
-          throw new Error("Betting is closed!");
+          throw new Error('Betting is closed!');
         },
-        "game.start": function(id, expires) {
+        'game.start': function(id, expires) {
           if (!id) {
-            throw new Error("Missing game id");
+            throw new Error('Missing game id');
           }
 
           if (!expires) {
-            throw new Error("Missing expire time");
+            throw new Error('Missing expire time');
           }
 
           this.currentGameId = id;
@@ -51,52 +51,52 @@ angular.module('salty-spork').factory('bettingFsm',
       open: {
         _onEnter: function() {
           var self = this;
-          $.speechBubble.write("Betting is open. Place your bets!");
-          console.info("[FSM] Betting open: gameId=" + this.currentGameId +
-                       " expire=" + this.currentBetExpires);
+          $.speechBubble.write('Betting is open. Place your bets!');
+          console.info('[FSM] Betting open: gameId=' + this.currentGameId +
+                       ' expire=' + this.currentBetExpires);
           this.emit('betting.open', {gameId: this.currentGameId, expires: this.currentBetExpires});
 
           var gameId = self.currentGameId;
           setTimeout(function() {
-            self.handle("game.expired", gameId);
+            self.handle('game.expired', gameId);
           }, this.currentBetExpires - Date.now());
         },
-        "game.end": function(id) {
+        'game.end': function(id) {
           if (!id) {
-            throw new Error("Missing game id");
+            throw new Error('Missing game id');
           }
 
           if (id !== this.currentGameId) {
-            console.warn("[FSM] Attempt to end game with unknown game_id (" + id + ")." +
-                          " Transitioning anyway.");
+            console.warn('[FSM] Attempt to end game with unknown game_id (' + id + ').' +
+                          ' Transitioning anyway.');
           }
           this.transition('closed');
         },
-        "game.expired": function(id) {
+        'game.expired': function(id) {
           if (id !== this.currentGameId) {
-            console.warn("[FSM] Attempt to expire game with unknown game_id (" + id + ")." +
-                          " Transitioning anyway.");
+            console.warn('[FSM] Attempt to expire game with unknown game_id (' + id + ').' +
+                          ' Transitioning anyway.');
           }
-          $.speechBubble.write("Betting period expired!");
-          console.log("Betting period expired!");
+          $.speechBubble.write('Betting period expired!');
+          console.log('Betting period expired!');
           this.transition('closed');
         },
-        "bet.odds": function(id, odds) {
+        'bet.odds': function(id, odds) {
           if (id !== this.currentGameId) {
-            console.warn("[FSM] Ignoring bet odds for unknown game_id (" + id + ").");
+            console.warn('[FSM] Ignoring bet odds for unknown game_id (' + id + ').');
           }
 
           this.emit('bet.odds', odds);
         },
-        "placeBet": function(amount, team) {
+        'placeBet': function(amount, team) {
           var bet = new Bet(),
               self = this;
 
           if (!amount || !team) {
-            throw new Error("Missing amount or team");
+            throw new Error('Missing amount or team');
           }
 
-          mixpanel.track("place_bet", {amount: amount, team: team, game_id: this.currentGameId});
+          mixpanel.track('place_bet', {amount: amount, team: team, game_id: this.currentGameId});
 
           bet.$save({ game_id: this.currentGameId, amount: amount, team: team})
           .then(function() {
@@ -120,35 +120,35 @@ angular.module('salty-spork').factory('bettingFsm',
 
   var bettingFsm = new BettingFsm();
 
-  pusher.on("game_start", function(msg) {
-    console.log("New game: " + msg.game_id);
-    console.log("Betting expires: " + msg.expires);
+  pusher.on('game_start', function(msg) {
+    console.log('New game: ' + msg.game_id);
+    console.log('Betting expires: ' + msg.expires);
     mixpanel.track('receive_game_start', {game_id: msg.game_id, expires: msg.expires});
     bettingFsm.handle('game.start', msg.game_id, msg.expires);
   });
 
-  pusher.on("game_end", function(msg) {
-    console.log("End game: " + msg.game_id);
+  pusher.on('game_end', function(msg) {
+    console.log('End game: ' + msg.game_id);
     mixpanel.track('receive_game_end', {game_id: msg.game_id});
     bettingFsm.handle('game.end', msg.game_id);
   });
 
-  pusher.on("bet.odds", function(msg) {
+  pusher.on('bet.odds', function(msg) {
     bettingFsm.handle('bet.odds', msg.game_id, msg.odds);
   });
 
   betMode.getStatus().then(function(status) {
-    if (status.mode === "closed") {
+    if (status.mode === 'closed') {
       return;
     }
 
     // If we're already engaged in a game, get our FSM
     // into the right place and fake events.
     // There's probably a cleaner way...
-    bettingFsm.handle("game.start", status.gameId, Date.parse(status.expires));
+    bettingFsm.handle('game.start', status.gameId, Date.parse(status.expires));
 
-    if (status.mode === "placed") {
-      bettingFsm.emit("bet.placed", {
+    if (status.mode === 'placed') {
+      bettingFsm.emit('bet.placed', {
         gameId: status.gameId,
         amount: status.amount || 0,
         team: status.team,

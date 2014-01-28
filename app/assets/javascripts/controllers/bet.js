@@ -1,11 +1,11 @@
-/*global mixpanel,machina*/
+/*global mixpanel*/
 angular.module('salty-spork').controller('BettingCtrl',
   ['$scope', '$resource', '$timeout', 'user', 'betMode', 'bettingFsm',
   function BettingCtrl($scope, $resource, $timeout, user, betMode, bettingFsm) {
 
   var teams = {
-    "blue": "Blue",
-    "purple": "Purple"
+    'blue': 'Blue',
+    'purple': 'Purple'
   };
 
   $scope.showBetControls = false;
@@ -17,7 +17,7 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   $scope.currentGameId = 0;
   $scope.wallet = 0;
-  $scope.betMode = "closed";
+  $scope.betMode = 'closed';
 
   var BetOdds = {
     reset: function() {
@@ -66,13 +66,13 @@ angular.module('salty-spork').controller('BettingCtrl',
   Bet.init();
 
   $scope.makeBet = function(amount, team) {
-    if ($scope.betMode !== "open") {
-      $.speechBubble.write("Betting is closed for the current game");
+    if ($scope.betMode !== 'open') {
+      $.speechBubble.write('Betting is closed for the current game');
       return;
     }
 
     mixpanel.track(
-      "place_bet",
+      'place_bet',
       { 'amount': amount,
         'team': team});
 
@@ -108,8 +108,8 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   bettingFsm.on('betting.open', function(event) {
     $scope.$apply(function() {
-      console.debug("got betting open msg from fsm:", event);
-      $scope.betMode = "open";
+      console.debug('got betting open msg from fsm:', event);
+      $scope.betMode = 'open';
       BetOdds.reset();
 
       clearInterval(countdownInterval);
@@ -120,15 +120,15 @@ angular.module('salty-spork').controller('BettingCtrl',
 
   bettingFsm.on('betting.closed', function(event) {
     $scope.$apply(function() {
-      console.debug("got betting closed msg from fsm:", event);
-      $scope.betMode = "closed";
+      console.debug('got betting closed msg from fsm:', event);
+      $scope.betMode = 'closed';
     });
   });
 
   bettingFsm.on('bet.placed', function(betEvent) {
     $scope.$apply(function() {
-      $.speechBubble.write("Placed a bet for " + betEvent.amount + "!");
-      console.debug("we placed a bet wooo!", betEvent);
+      $.speechBubble.write('Placed a bet for ' + betEvent.amount + '!');
+      console.debug('we placed a bet wooo!', betEvent);
       mixpanel.track(
         'bet_placed',
         { 'amount': betEvent.amount,
@@ -136,19 +136,19 @@ angular.module('salty-spork').controller('BettingCtrl',
           'game_id': betEvent.gameId});
       // The FSM can still accept bets, but we need to work out
       // the UI
-      $scope.betMode = "closed";
+      $scope.betMode = 'closed';
       Bet.placed(betEvent);
     });
   });
 
   bettingFsm.on('bet.error', function(event) {
     $scope.$apply(function() {
-      $.speechBubble.write("Sorry, we had an error placing your bet");
-      console.debug("we got a betting error", event);
+      $.speechBubble.write('Sorry, we had an error placing your bet');
+      console.debug('we got a betting error', event);
     });
   });
 
-  bettingFsm.on("bet.odds", function(odds) {
+  bettingFsm.on('bet.odds', function(odds) {
     $scope.$apply(function() {
       BetOdds.update(odds);
     });

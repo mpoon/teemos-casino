@@ -2,10 +2,10 @@ angular.module('salty-spork', [
   'ngResource',
   'ngRoute',
   'filters'
-]).config(["$locationProvider", function($locationProvider) {
+]).config(['$locationProvider', function($locationProvider) {
   $locationProvider.html5Mode(true);
 }])
-.run(["$templateCache", function($templateCache) {
-  $templateCache.put('user.html', JST["user"]());
-  $templateCache.put('bet.html', JST["bet"]());
+.run(['$templateCache', function($templateCache) {
+  $templateCache.put('user.html', JST.user());
+  $templateCache.put('bet.html', JST.bet());
 }]);

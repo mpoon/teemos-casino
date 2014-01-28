@@ -22,11 +22,11 @@ angular.module('salty-spork').factory('betMode',
 
       deferred.resolve(status);
     }).error(function(data, status_code) {
-      status.mode = "closed";
+      status.mode = 'closed';
 
       status.gameId = 0;
       status.amount = 0;
-      status.team = "None";
+      status.team = 'None';
       status.expires = 0;
 
       mixpanel.track(

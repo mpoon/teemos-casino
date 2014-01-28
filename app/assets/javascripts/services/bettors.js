@@ -12,7 +12,7 @@ angular.module('salty-spork').factory('bettors',
       bettors.purple = result.purple;
       bettors.top = result.top;
       deferred.resolve(bettors);
-    }).error(function(data, status_code) {
+    }).error(function() {
       deferred.resolve(bettors);
     });
 

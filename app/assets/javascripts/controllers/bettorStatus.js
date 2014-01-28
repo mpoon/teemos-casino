@@ -11,7 +11,7 @@ angular.module('salty-spork').controller('BettorStatusCtrl',
       $scope.seasonTop = status.top;
     });
 
-    pusher.on("bettor", function(msg) {
+    pusher.on('bettor', function(msg) {
       if(msg.team === 'purple') {
         $scope.purpleLiveBets.push({'name': msg.name, 'amount': msg.amount});
       }
@@ -20,11 +20,11 @@ angular.module('salty-spork').controller('BettorStatusCtrl',
       }
     });
 
-    pusher.on("season_top", function(msg) {
+    pusher.on('season_top', function(msg) {
       $scope.seasonTop = msg.top;
     });
 
-    pusher.on("game_end", function(msg) {
+    pusher.on('game_end', function() {
       $scope.purpleLiveBets = [];
       $scope.blueLiveBets = [];
     });

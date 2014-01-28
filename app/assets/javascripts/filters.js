@@ -8,6 +8,6 @@ angular.module('filters', [])
 
   return function(input) {
     var number = parseInt(input, 10);
-    return Math.floor(number / 60) + ":" + pad(number % 60, 2);
+    return Math.floor(number / 60) + ':' + pad(number % 60, 2);
   };
 });
