@@ -24,7 +24,7 @@ end.parse!
 
 if options[:environment] == 'production'
   host = "www.teemoscasino.com"
-  api_key = `heroku config:get API_KEY`.gsub("\n",'')
+  api_key = `heroku config:get API_KEY --app teemos-casino`.gsub("\n",'')
 else
   host = "localhost:3000"
   api_key = ""
