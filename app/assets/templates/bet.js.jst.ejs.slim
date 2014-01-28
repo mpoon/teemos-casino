@@ -2,15 +2,93 @@
   .heading
     span Login to bet!
 
+  .card-content-container
+    .bet.betting-open.main-bet
+      .not-logged-in.card-content
+        p.status-info
+          a href="/auth/twitchtv" target="_self"
+            | Connect your Twitch account 
+          | to join and start betting!
+
+      .wager.card-content.not-logged-in
+        h4 Time Left To Bet
+        .clock
+          | {{countdown | time}}
+
+      .bet-reward-multipliers.card-content
+        h4 Reward Multipliers
+        p.number-amount
+          span.purple
+            | {{odds.purple.mult}}
+          | &nbsp;:&nbsp;
+          span.blue
+            | {{odds.blue.mult}}
+
 .ng ng-if="showBetControls" ng-switch="" on="betMode"
-  .ng ng-switch-when="open"
-    .heading
-      span Betting Time
+  .heading.tabs
+    span.active Main Bet
+    span Side Bet
 
+  .ng ng-switch-when="sidebet"
+    .card-content-container
+      .bet.betting-open.side-bet ng-switch-when="open" style="display: block"
+        / show only the block below when there are no side bets
+        .wager.card-content.no-bet style="display: none"
+          h4 Preparing Sidebets
+          p.status-info
+            | While game is in-progress sidebets will appear here so pay attention!
+
+        .wager.card-content
+          h4 Your Wager
+          p.status-info
+            | Sidebet description here
+
+        .wager.card-content
+          h4
+            | Time Left - {{countdown | time}}
+
+          form
+            .available
+              p
+                | {{wallet | number}} Mushrooms Available
+<<<<<<< HEAD
+
+            .bet-amount
+              input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
+
+            .options
+              button.first ng-click="makeBet(bet.amount, 'purple')" Purple
+              button.second ng-click="makeBet(bet.amount, 'blue')" Blue
+
+        .bet-reward-multipliers.card-content
+          h4 Reward Multipliers
+          p.number-amount
+            span.purple
+              | {{odds.purple.mult}}
+            | &nbsp;:&nbsp;
+            span.blue
+              | {{odds.blue.mult}}
+
+=======
+
+            .bet-amount
+              input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
+
+            .options
+              button.first ng-click="makeBet(bet.amount, 'purple')" Purple
+              button.second ng-click="makeBet(bet.amount, 'blue')" Blue
+
+        .bet-reward-multipliers.card-content
+          h4 Reward Multipliers
+          p.number-amount
+            span.purple
+              | {{odds.purple.mult}}
+            | &nbsp;:&nbsp;
+            span.blue
+              | {{odds.blue.mult}}
+
+>>>>>>> f07bb9817ed12db50436ffd01dfcbed2af39b3fa
   .ng ng-switch-when="closed"
-    .heading
-      span Betting closed!
-
     .card-content-container
       .bet.betting-closed.main-bet style="display: block"
         .your-bet.card-content ng-if="bet.status == 'placed'"
@@ -45,82 +123,15 @@
             span.blue
               | {{odds.blue.mult}}
 
-  // if user is not logged in
   .card-content-container
-    .bet.betting-open.main-bet style="display: none"
-      .not-logged-in.card-content
-        h4 Log In To Bet
-        p.status-info
-          a href="/auth/twitchtv" target="_self"
-            | Connect your Twitch account 
-          | to join and start betting!
-
-      .wager.card-content
-        h4 Time Left To Bet
-        .clock
-          | 2:59
-
-      .bet-reward-multipliers.card-content
-        h4 Reward Multipliers
-        p.number-amount
-          span.purple
-            | {{odds.purple.mult}}
-          | &nbsp;:&nbsp;
-          span.blue
-            | {{odds.blue.mult}}
-
-  .card-content-container
-    .bet.betting-open.main-bet style="display: none"
-      .wager.card-content
-        h4 Your Wager
-
-        .clock
-          | Time Left - 2:59
-
-        form
-          .available
-            p 0 Mushrooms Available
-
-          .bet-amount
-            input.amount type="text" placeholder="Number of Mushrooms"
-
-          .options
-            button.first Option
-            button.second Option
-
-      .bet-reward-multipliers.card-content
-        h4 Reward Multipliers
-        p.number-amount
-          span.purple
-            | {{odds.purple.mult}}
-          | &nbsp;:&nbsp;
-          span.blue
-            | {{odds.blue.mult}}
-
-    .bet.betting-closed.main-bet style="display: none"
-      .your-bet
-        h4 Bet 1
-        .desc
-          | 50,000 on
-          span.purple Purple
-
-      .bet-status
-        h4 Bet 1 Stat
-        .purple-bet-amount.bet-amount
-          | 1,000
-        .blue-bet-amount.bet-amount
-          | 2,000
-        .odds
-          span.purple 1
-          | :
-          span.blue 2
-
-    // if sidebet add border class
     .bet.betting-open.main-bet ng-switch-when="open" style="display: block"
       .wager.card-content
         h4 Your Wager
+        p.status-info
+          | Purple vs Blue Team! Which team will win?
 
-        .clock
+      .wager.card-content
+        h4
           | Time Left - {{countdown | time}}
 
         form
