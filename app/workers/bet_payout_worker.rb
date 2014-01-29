@@ -12,8 +12,6 @@ class BetPayoutWorker
       amount = (odds[event.team.to_sym][:mult] * bet.amount).floor
       user = bet.user
 
-      logger.info "[BetPayoutWorker] Bet won:#{won} for #{bet.amount} on #{bet.team}: #{amount}"
-
       Bet.transaction do
         if won
           user.update_bet_streak :win
@@ -28,6 +26,8 @@ class BetPayoutWorker
         user.save!
         bet.destroy!
       end
+
+      logger.info "[BetPayoutWorker] #{user.name} Bet won: #{won} for #{bet.amount} on #{bet.team}: #{amount}"
     end
 
     open_bet.update!(state: :resolved)

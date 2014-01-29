@@ -36,13 +36,4 @@ class UserTest < ActiveSupport::TestCase
     u.bet_count = 50
     assert_equal 20, u.wallet_minimum
   end
-
-
-  test "#increment_with_sql allows other attribute saves" do
-    u = users(:one)
-    name = "newname"
-    u.name = name
-    u.send(:increment_with_sql!, :wallet, 5)
-    assert_equal name, u.name
-  end
 end

@@ -12,11 +12,15 @@ class FakeUserWorker
     prng = Random.new
 
     users.shuffle!.each do |user|
+      if user.wallet <= 0
+        next
+      end
+
       bet = Bet.new(open_bet: open_bet, user: user)
 
       bet.team = ["blue", "purple"].sample
       Bet.transaction do
-        bet.amount = prng.rand(user.wallet + 1) + 1
+        bet.amount = prng.rand(user.wallet) +1
         user.update_wallet!(-bet.amount, :bet)
         bet.save!
       end
@@ -25,7 +29,7 @@ class FakeUserWorker
       user.save
 
       PusherClient.global('bettor', {name: bet.user.name, amount: bet.amount, team: bet.team})
-      logger.info "Placed bet for $#{bet.amount} on #{bet.team}"
+      logger.info "#{user.name} placed bet for $#{bet.amount} on #{bet.team}"
 
       sleep(prng.rand(5))
     end
