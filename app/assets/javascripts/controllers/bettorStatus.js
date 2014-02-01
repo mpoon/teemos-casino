@@ -4,6 +4,8 @@ angular.module('salty-spork').controller('BettorStatusCtrl',
     $scope.seasonTop = [];
     $scope.purpleLiveBets = [];
     $scope.blueLiveBets = [];
+    $scope.purpleLiveSideBets = [];
+    $scope.blueLiveSideBets = [];
 
     bettors.getStatus().then(function(status) {
       $scope.purpleLiveBets = status.purple;

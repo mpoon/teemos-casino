@@ -18,6 +18,7 @@ angular.module('salty-spork').controller('BettingCtrl',
   $scope.currentGameId = 0;
   $scope.wallet = 0;
   $scope.betMode = 'closed';
+  $scope.displayBetType = 'main';
 
   var BetOdds = {
     reset: function() {
