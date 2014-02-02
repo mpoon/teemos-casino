@@ -133,6 +133,14 @@ angular.module('salty-spork').factory('bettingFsm',
     bettingFsm.handle('game.end', msg.game_id);
   });
 
+  pusher.on('sidebet_start', function(msg) {
+    console.log(msg);
+  });
+
+  pusher.on('sidebet_end', function(msg) {
+    console.log(msg);
+  });
+
   pusher.on('bet.odds', function(msg) {
     bettingFsm.handle('bet.odds', msg.game_id, msg.odds);
   });

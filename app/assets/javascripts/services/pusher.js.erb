@@ -31,6 +31,14 @@ angular.module('salty-spork').factory('pusher',
     ee.emit('bettor', message);
   });
 
+  globalChannel.bind('sidebet_start', function(message) {
+    ee.emit('sidebet_start', message);
+  });
+
+  globalChannel.bind('sidebet_end', function(message) {
+    ee.emit('sidebet_end', message);
+  });
+
   user.getStatus.then(function(status) {
     if (!status.loggedIn) {
       return;

@@ -3,7 +3,10 @@ require 'optparse'
 
 options = {}
 options[:game_time] = 30
+options[:sidebet_time] = 10
 options[:sleep_time] = 15
+
+sidebet_types = ['baron_kill', 'dragon_kill', 'turret_kill', 'player_death']
 
 OptionParser.new do |opts|
   opts.banner = "Usage: saltybot.rb [options]"
@@ -37,7 +40,21 @@ while true do
              'http://#{host}/api/game_events/start' \
              -H 'Authorization: #{api_key}' \
              -d 'game_id=#{game_id}'`
-  sleep(options[:game_time])
+  for i in 0..(options[:game_time] / options[:sidebet_time] - 1)
+    sleep(options[:sidebet_time])
+    puts "Open side bet"
+    puts `curl -X POST \
+              'http://#{host}/api/game_events/open_sidebet' \
+              -H 'Authorization: #{api_key}' \
+              -d 'game_id=#{game_id}&kind=#{sidebet_types[i % 4]}'`
+    sleep(options[:sidebet_time])
+    puts "Close side bet"
+    puts `curl -X POST \
+              'http://#{host}/api/game_events/close_sidebet' \
+              -H 'Authorization: #{api_key}' \
+              -d 'game_id=#{game_id}&kind=#{sidebet_types[i % 4]}&winner=purple'`
+  end
+  sleep(options[:sidebet_time])
   puts "Ending game #{game_id}"
   puts `curl -X POST \
              -H "Authorization: #{api_key}" \
