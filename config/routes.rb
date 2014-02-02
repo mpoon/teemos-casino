@@ -12,6 +12,8 @@ TeemosCasino::Application.routes.draw do
       collection do
         post :start
         post :end
+        post :open_sidebet
+        post :close_sidebet
       end
     end
 
