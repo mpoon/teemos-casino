@@ -2,8 +2,8 @@
 require 'optparse'
 
 options = {}
-options[:game_time] = 30
-options[:sidebet_time] = 10
+options[:game_time] = 20
+options[:sidebet_time] = 5
 options[:sleep_time] = 15
 
 sidebet_types = ['baron_kill', 'dragon_kill', 'turret_kill', 'player_death']
@@ -37,28 +37,30 @@ while true do
   game_id = rand(10000)
   puts "Starting game #{game_id}"
   puts `curl -X POST \
-             'http://#{host}/api/game_events/start' \
+             'http://#{host}/api/game_events/open_bet' \
              -H 'Authorization: #{api_key}' \
-             -d 'game_id=#{game_id}'`
+             -d 'game_id=#{game_id}&bet_id=0&kind=game'`
+  bet_id = 1
   for i in 0..(options[:game_time] / options[:sidebet_time] - 1)
     sleep(options[:sidebet_time])
     puts "Open side bet"
     puts `curl -X POST \
-              'http://#{host}/api/game_events/open_sidebet' \
+              'http://#{host}/api/game_events/open_bet' \
               -H 'Authorization: #{api_key}' \
-              -d 'game_id=#{game_id}&kind=#{sidebet_types[i % 4]}'`
+              -d 'game_id=#{game_id}&bet_id=#{bet_id}&kind=#{sidebet_types[i % 4]}'`
     sleep(options[:sidebet_time])
     puts "Close side bet"
     puts `curl -X POST \
-              'http://#{host}/api/game_events/close_sidebet' \
+              'http://#{host}/api/game_events/close_bet' \
               -H 'Authorization: #{api_key}' \
-              -d 'game_id=#{game_id}&kind=#{sidebet_types[i % 4]}&winner=purple'`
+              -d 'game_id=#{game_id}&bet_id=#{bet_id}&kind=#{sidebet_types[i % 4]}&result=purple'`
+    bet_id = bet_id + 1
   end
   sleep(options[:sidebet_time])
   puts "Ending game #{game_id}"
   puts `curl -X POST \
              -H "Authorization: #{api_key}" \
-             "http://#{host}/api/game_events/end"\
-             -d 'game_id=#{game_id}&winner=purple'`
+             "http://#{host}/api/game_events/close_bet"\
+             -d 'game_id=#{game_id}&bet_id=0&kind=game&result=purple'`
   sleep(options[:sleep_time])
 end

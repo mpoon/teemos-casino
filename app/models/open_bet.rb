@@ -6,7 +6,7 @@ class OpenBet < ActiveRecord::Base
   validates :state, inclusion: { in: %w(open closed resolved),
     message: "%{value} is not a valid state" }
 
-  EXPIRY = 60.seconds
+  EXPIRY = 15.seconds
 
 
   def state=(new_state)
@@ -18,7 +18,7 @@ class OpenBet < ActiveRecord::Base
   end
 
   def closed?
-    !open?
+    !open? || state == "resolved"
   end
 
   def expired?

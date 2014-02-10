@@ -16,9 +16,10 @@ class BetUpdateWorker
       else
         previous_odds = odds
         logger.info "[BetUpdateWorker] OpenBet id: #{open_bet.id} Odds blue: #{odds[:blue]} purple: #{odds[:purple]}"
-        PusherClient.global('bet.odds', {
+        PusherClient.global('bet_update', {
           game_id: open_bet.game_id,
-          open_bet_id: open_bet.id,
+          bet_id: open_bet.bet_id,
+          kind: open_bet.kind,
           odds: odds
         })
       end

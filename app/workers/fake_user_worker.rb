@@ -3,36 +3,51 @@ class FakeUserWorker
 
   def perform(open_bet_id)
     open_bet = OpenBet.find(open_bet_id)
-    if open_bet.closed?
-      logger.info "Not processing open bet ##{open_bet.id} because it's closed"
-      return
-    end
 
     users = User.where(twitch_id: (STARTING_TWITCH_ID..ENDING_TWITCH_ID).map(&:to_s))
     prng = Random.new
 
     users.shuffle!.each do |user|
-      if user.wallet <= 0
-        next
+      open_bet.reload
+      if open_bet.closed?
+        logger.info "Not processing open bet ##{open_bet.id} because it's closed"
+        return
       end
 
-      bet = Bet.new(open_bet: open_bet, user: user)
+      amount = prng.rand(user.wallet + 1)
 
-      bet.team = ["blue", "purple"].sample
-      Bet.transaction do
-        bet.amount = prng.rand(user.wallet) +1
-        user.update_wallet!(-bet.amount, :bet)
-        bet.save!
+      bet = Bet.new(open_bet: open_bet, user: user, team: ['blue', 'purple'].sample)
+
+      begin
+        Bet.transaction do
+          user.lock!
+          if user.wallet < amount
+            raise
+          else
+            user.update_wallet!(-amount, :bet)
+          end
+          bet.amount = amount
+          bet.save!
+        end
+      rescue
+        next
       end
 
       user.bet_count += 1
       user.save
 
-      PusherClient.global('bettor', {name: bet.user.name, amount: bet.amount, team: bet.team})
-      logger.info "#{user.name} placed bet for $#{bet.amount} on #{bet.team}"
+      PusherClient.global('bettor', {
+        name: bet.user.name,
+        amount: bet.amount,
+        team: bet.team,
+        game_id: bet.open_bet.game_id,
+        bet_id: bet.open_bet.bet_id,
+        kind: bet.open_bet.kind
+      })
 
-      sleep(prng.rand(5))
+      logger.info "#{user.name} placed bet for $#{bet.amount} on #{bet.team} for open_bet #{open_bet_id}"
+
+      sleep(prng.rand(3))
     end
-
   end
 end
