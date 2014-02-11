@@ -8,8 +8,14 @@ angular.module('salty-spork').factory('bettors',
 
     $http.get('/api/bettors')
     .success(function(result) {
-      bettors.blue = result.blue;
-      bettors.purple = result.purple;
+      if (result.bets.length > 0) {
+        result.bets.forEach(function(bet) {
+          if (bet.kind === 'game') {
+            bettors.blue = bet.blue;
+            bettors.purple = bet.purple;
+          }
+        });
+      }
       bettors.top = result.top;
       deferred.resolve(bettors);
     }).error(function() {

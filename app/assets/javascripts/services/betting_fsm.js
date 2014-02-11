@@ -120,28 +120,21 @@ angular.module('salty-spork').factory('bettingFsm',
 
   var bettingFsm = new BettingFsm();
 
-  pusher.on('game_start', function(msg) {
-    console.log('New game: ' + msg.game_id);
-    console.log('Betting expires: ' + msg.expires);
-    mixpanel.track('receive_game_start', {game_id: msg.game_id, expires: msg.expires});
-    bettingFsm.handle('game.start', msg.game_id, msg.expires);
-  });
-
-  pusher.on('game_end', function(msg) {
-    console.log('End game: ' + msg.game_id);
-    mixpanel.track('receive_game_end', {game_id: msg.game_id});
-    bettingFsm.handle('game.end', msg.game_id);
-  });
-
-  pusher.on('sidebet_start', function(msg) {
+  pusher.on('bet_open', function(msg) {
     console.log(msg);
+    if(msg.kind === 'game') {
+      bettingFsm.handle('game.start', msg.game_id, msg.expires);
+    }
   });
 
-  pusher.on('sidebet_end', function(msg) {
+  pusher.on('bet_close', function(msg) {
     console.log(msg);
+    if(msg.kind === 'game') {
+      bettingFsm.handle('game.end', msg.game_id);
+    }
   });
 
-  pusher.on('bet.odds', function(msg) {
+  pusher.on('bet_update', function(msg) {
     bettingFsm.handle('bet.odds', msg.game_id, msg.odds);
   });
 

@@ -4,21 +4,20 @@ angular.module('salty-spork').factory('betMode',
     var deferred = $q.defer();
     var status = {};
 
-    $http.get('/api/bet')
-    .success(function(bet) {
-      status.mode = bet.mode;
-      status.gameId = bet.game_id;
-      status.amount = bet.amount;
-      status.team = bet.team;
-      status.expires = bet.expires;
-
-      mixpanel.track(
-        'betstatus',
-        { 'bet_mode': bet.mode,
-          'game_id': bet.game_id,
-          'amount': bet.amount,
-          'team': bet.team,
-          'expires': bet.expires });
+    $http.get('/api/bet/status')
+    .success(function(bets) {
+      bets.forEach(function(bet) {
+        if (bet.mode === 'closed') {
+          status.mode = 'closed';
+        }
+        else if (bet.kind === 'game') {
+          status.mode = bet.mode;
+          status.gameId = bet.game_id;
+          status.amount = bet.amount;
+          status.team = bet.team;
+          status.expires = bet.expires;
+        }
+      });
 
       deferred.resolve(status);
     }).error(function(data, status_code) {

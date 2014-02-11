@@ -14,11 +14,21 @@ angular.module('salty-spork').controller('BettorStatusCtrl',
     });
 
     pusher.on('bettor', function(msg) {
-      if(msg.team === 'purple') {
-        $scope.purpleLiveBets.push({'name': msg.name, 'amount': msg.amount});
+      if(msg.kind === 'game') {
+        if(msg.team === 'purple') {
+          $scope.purpleLiveBets.push({'name': msg.name, 'amount': msg.amount});
+        }
+        if(msg.team === 'blue') {
+          $scope.blueLiveBets.push({'name': msg.name, 'amount': msg.amount});
+        }
       }
-      if(msg.team === 'blue') {
-        $scope.blueLiveBets.push({'name': msg.name, 'amount': msg.amount});
+      else {
+        if(msg.team === 'purple') {
+          $scope.purpleLiveSideBets.push({'name': msg.name, 'amount': msg.amount});
+        }
+        if(msg.team === 'blue') {
+          $scope.blueLiveSideBets.push({'name': msg.name, 'amount': msg.amount});
+        }
       }
     });
 
@@ -26,8 +36,14 @@ angular.module('salty-spork').controller('BettorStatusCtrl',
       $scope.seasonTop = msg.top;
     });
 
-    pusher.on('game_end', function() {
-      $scope.purpleLiveBets = [];
-      $scope.blueLiveBets = [];
+    pusher.on('bet_close', function() {
+      if(msg.kind === 'game') {
+        $scope.purpleLiveBets = [];
+        $scope.blueLiveBets = [];
+      }
+      else {
+        $scope.purpleLiveSideBets = [];
+        $scope.blueLiveSideBets = [];
+      }
     });
   }]);
