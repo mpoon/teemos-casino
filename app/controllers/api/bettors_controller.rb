@@ -1,13 +1,13 @@
 class Api::BettorsController < Api::BaseController
 
   def show
-    bettors = {top: []}
+    bettors = {top: [], bets: []}
 
     open_bets = OpenBet.where(state: 'open')
 
     open_bets.each do |open_bet|
       active_bets = open_bet.bets || []
-      bettors[open_bet.bet_id] = {purple: [], blue: []}
+      bettors[:bets] = {kind: open_bet.kind, purple: [], blue: []}
 
       active_bets.each do |bet|
         bettors[open_bet.bet_id][bet.team.to_sym].push({
