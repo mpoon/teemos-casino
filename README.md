@@ -7,6 +7,10 @@ Salts' Ahoy!
 
   Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
+  Install `vagrant-cachier` to make vagrant provisioning faster
+
+    vagrant plugin install vagrant-cachier
+
   Start up Vagrant
 
     vagrant up
