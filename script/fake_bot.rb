@@ -2,9 +2,9 @@
 require 'optparse'
 
 options = {}
-options[:game_time] = 20
-options[:sidebet_time] = 5
-options[:sleep_time] = 15
+options[:game_time] = 240
+options[:sidebet_time] = 120
+options[:sleep_time] = 60
 
 sidebet_types = ['baron_kill', 'dragon_kill', 'turret_kill', 'player_death']
 

@@ -11,32 +11,45 @@ class Api::BetsController < Api::BaseController
       if active_bet
         status.push({
           mode: 'placed',
-          game_id: open_bet.game_id,
-          bet_id: open_bet.bet_id,
+          gameId: open_bet.game_id,
+          betId: open_bet.bet_id,
           amount: active_bet.amount,
           team: active_bet.team,
-          expires: open_bet.expires_at
+          expires: open_bet.expires_at,
+          kind: open_bet.kind
         })
       elsif !open_bet.expired?
         status.push({
           mode: 'open',
-          game_id: open_bet.game_id,
-          bet_id: open_bet.bet_id,
+          gameId: open_bet.game_id,
+          betId: open_bet.bet_id,
           amount: nil,
           team: nil,
-          expires: open_bet.expires_at
+          expires: open_bet.expires_at,
+          kind: open_bet.kind
+        })
+      elsif open_bet.expired?
+        status.push({
+          mode: 'closed',
+          gameId: open_bet.game_id,
+          betId: open_bet.bet_id,
+          amount: nil,
+          team: nil,
+          expires: open_bet.expires_at,
+          kind: open_bet.kind
         })
       end
     end
 
     if status.empty?
       status.push({
-        mode: 'closed',
-        game_id: nil,
+        mode: nil,
+        gameId: nil,
         amount: nil,
         team: nil,
         expires: nil,
-        bet_id: nil
+        betId: nil,
+        kind: nil
       })
     end
 
@@ -76,8 +89,8 @@ class Api::BetsController < Api::BaseController
       name: bet.user.name,
       amount: bet.amount,
       team: bet.team,
-      game_id: bet.open_bet.game_id,
-      bet_id: bet.open_bet.bet_id,
+      gameId: bet.open_bet.game_id,
+      betId: bet.open_bet.bet_id,
       kind: bet.open_bet.kind
     })
 

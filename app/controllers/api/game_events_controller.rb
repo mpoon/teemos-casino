@@ -19,8 +19,8 @@ class Api::GameEventsController < Api::BaseController
     )
 
     PusherClient.global('bet_open', {
-      game_id: event.game_id,
-      bet_id: event.bet_id,
+      gameId: event.game_id,
+      betId: event.bet_id,
       kind: event.kind,
       expires: open_bet.expires_at.to_i * 1000
     })
@@ -44,8 +44,8 @@ class Api::GameEventsController < Api::BaseController
     open_bet.update!(state: :closed)
 
     PusherClient.global('bet_close', {
-      game_id: event.game_id,
-      bet_id: event.bet_id,
+      gameId: event.game_id,
+      betId: event.bet_id,
       kind: event.kind,
       result: event.result
     })
