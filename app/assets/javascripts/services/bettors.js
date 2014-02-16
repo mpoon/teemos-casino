@@ -1,4 +1,4 @@
-angular.module('salty-spork').factory('bettors',
+angular.module('teemos-casino').factory('bettors',
   ['$http', '$q', function($http, $q) {
 
     var deferred = $q.defer();

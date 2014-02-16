@@ -1,5 +1,5 @@
-angular.module('salty-spork').controller('BettorStatusCtrl',
-  ['$scope', 'pusher', 'bettors', function BettorStatusCtrl($scope, pusher, bettors) {
+angular.module('teemos-casino').controller('BettorsCtrl',
+  ['$scope', 'pusher', 'bettors', 'Constants', function ($scope, pusher, bettors, Constants) {
 
     $scope.seasonTop = [];
     $scope.purpleLiveBets = [];
@@ -36,7 +36,7 @@ angular.module('salty-spork').controller('BettorStatusCtrl',
       $scope.seasonTop = msg.top;
     });
 
-    pusher.on('bet_close', function() {
+    pusher.on('bet_close', function(msg) {
       if(msg.kind === 'game') {
         $scope.purpleLiveBets = [];
         $scope.blueLiveBets = [];

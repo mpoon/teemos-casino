@@ -1,4 +1,4 @@
-angular.module('salty-spork').factory('betMode',
+angular.module('teemos-casino').factory('betMode',
   ['$http', '$q', function($http, $q) {
 
     var deferred = $q.defer();
@@ -6,37 +6,24 @@ angular.module('salty-spork').factory('betMode',
 
     $http.get('/api/bet/status')
     .success(function(bets) {
-      bets.forEach(function(bet) {
-        if (bet.mode === 'closed') {
-          status.mode = 'closed';
-        }
-        else if (bet.kind === 'game') {
-          status.mode = bet.mode;
-          status.gameId = bet.game_id;
-          status.amount = bet.amount;
-          status.team = bet.team;
-          status.expires = bet.expires;
-        }
-      });
-
-      deferred.resolve(status);
+      // TODO: error checking
+      deferred.resolve(bets);
     }).error(function(data, status_code) {
-      status.mode = 'closed';
+      bets = [{
+        'mode': 'closed',
+        'gameId': null,
+        'amount': null,
+        'team': null,
+        'expires': null,
+        'betId': null,
+        'kind': null
+      }];
 
-      status.gameId = 0;
-      status.amount = 0;
-      status.team = 'None';
-      status.expires = 0;
-
-      mixpanel.track(
-        'betstatus_error',
-        { 'status_code': status_code });
-
-      deferred.resolve(status);
+      deferred.resolve(bets);
     });
 
     return {
-      getStatus: function() {
+      get: function() {
         return deferred.promise;
       }
     };

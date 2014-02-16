@@ -1,7 +1,7 @@
 /*global mixpanel*/
-angular.module('salty-spork').controller('BettingCtrl',
-  ['$scope', '$resource', '$timeout', 'user', 'betMode', 'bettingFsm',
-  function BettingCtrl($scope, $resource, $timeout, user, betMode, bettingFsm) {
+angular.module('teemos-casino').controller('BettingCtrl',
+  ['$scope', '$resource', '$timeout', 'user', 'betMode', 'mainBetFsm', 'Constants', 'mainBetFsm',
+  function ($scope, $resource, $timeout, user, betMode, mainBetFsm, Constants, mainBetFsm) {
 
   var teams = {
     'blue': 'Blue',
@@ -77,7 +77,7 @@ angular.module('salty-spork').controller('BettingCtrl',
       { 'amount': amount,
         'team': team});
 
-    bettingFsm.handle('placeBet', amount, team);
+    mainBetFsm.handle('placeBet', amount, team);
     // TODO: show loading spinner
   };
 
@@ -107,7 +107,7 @@ angular.module('salty-spork').controller('BettingCtrl',
     $scope.$digest();
   };
 
-  bettingFsm.on('betting.open', function(event) {
+  mainBetFsm.on('betting.open', function(event) {
     $scope.$apply(function() {
       console.debug('got betting open msg from fsm:', event);
       $scope.betMode = 'open';
@@ -119,14 +119,14 @@ angular.module('salty-spork').controller('BettingCtrl',
     });
   });
 
-  bettingFsm.on('betting.closed', function(event) {
+  mainBetFsm.on('betting.closed', function(event) {
     $scope.$apply(function() {
       console.debug('got betting closed msg from fsm:', event);
       $scope.betMode = 'closed';
     });
   });
 
-  bettingFsm.on('bet.placed', function(betEvent) {
+  mainBetFsm.on('bet.placed', function(betEvent) {
     $scope.$apply(function() {
       $.speechBubble.write('Placed a bet for ' + betEvent.amount + '!');
       console.debug('we placed a bet wooo!', betEvent);
@@ -142,14 +142,14 @@ angular.module('salty-spork').controller('BettingCtrl',
     });
   });
 
-  bettingFsm.on('bet.error', function(event) {
+  mainBetFsm.on('bet.error', function(event) {
     $scope.$apply(function() {
       $.speechBubble.write('Sorry, we had an error placing your bet');
       console.debug('we got a betting error', event);
     });
   });
 
-  bettingFsm.on('bet.odds', function(odds) {
+  mainBetFsm.on('bet.odds', function(odds) {
     $scope.$apply(function() {
       BetOdds.update(odds);
     });

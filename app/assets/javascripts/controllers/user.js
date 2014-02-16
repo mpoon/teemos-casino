@@ -1,5 +1,6 @@
-angular.module('salty-spork').controller('UserCtrl',
-  ['$scope', '$http', 'user', 'pusher', function UserCtrl($scope, $http, user, pusher) {
+angular.module('teemos-casino').controller('UserCtrl',
+  ['$scope', '$http', 'user', 'pusher', 'Constants',
+  function ($scope, $http, user, pusher, Constants) {
     user.getStatus.then(function(status) {
       $scope.loggedIn = status.loggedIn;
       $scope.user = status.user;
