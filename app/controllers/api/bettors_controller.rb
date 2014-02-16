@@ -10,7 +10,7 @@ class Api::BettorsController < Api::BaseController
       bettors[:bets] = {kind: open_bet.kind, purple: [], blue: []}
 
       active_bets.each do |bet|
-        bettors[open_bet.bet_id][bet.team.to_sym].push({
+        bettors[:bets][bet.team.to_sym].push({
           name: bet.user.name,
           amount: bet.amount
         })

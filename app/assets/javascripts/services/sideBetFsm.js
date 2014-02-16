@@ -1,10 +1,10 @@
 /*global machina, mixpanel*/
-angular.module('teemos-casino').factory('mainBetFsm',
+angular.module('teemos-casino').factory('sideBetFsm',
   ['$resource', '$q', 'pusher', 'betMode', function($resource, $q, pusher, betMode) {
 
   var Bet = $resource('/api/bet');
 
-  var MainBetFsm = machina.Fsm.extend({
+  var SideBetFsm = machina.Fsm.extend({
     currentState: {
       mode: null,
       gameId: null,
@@ -28,7 +28,7 @@ angular.module('teemos-casino').factory('mainBetFsm',
     states: {
       uninitialized: {
         _onEnter: function() {
-          console.log('[MainBetFsm] Enter state: uninitialized');
+          console.log('[SideBetFsm] Enter state: uninitialized');
           this.currentState.mode = null;
           this.currentState.gameId = null;
           this.currentState.betId = null;
@@ -40,7 +40,7 @@ angular.module('teemos-casino').factory('mainBetFsm',
           this.currentState.result = null;
         },
         openBet: function(state) {
-          console.log('[MainBetFsm] From state: uninitialized transition openBet');
+          console.log('[SideBetFsm] From state: uninitialized transition openBet');
           this.currentState.gameId = state.gameId;
           this.currentState.betId = state.betId;
           this.currentState.kind = state.kind;
@@ -50,7 +50,7 @@ angular.module('teemos-casino').factory('mainBetFsm',
           this.transition('open');
         },
         initialize: function(state) {
-          console.log('[MainBetFsm] From state: uninitialized transition initialize');
+          console.log('[SideBetFsm] From state: uninitialized transition initialize');
           this.currentState.mode = state.mode;
           this.currentState.gameId = state.gameId;
           this.currentState.betId = state.betId;
@@ -84,24 +84,24 @@ angular.module('teemos-casino').factory('mainBetFsm',
       },
       closed: {
         _onEnter: function() {
-          console.log('[MainBetFsm] Enter state: closed');
+          console.log('[SideBetFsm] Enter state: closed');
           this.emit('betting.closed', {
             gameId: this.currentState.gameId
           });
         },
         betClose: function() {
-          console.log('[MainBetFsm] From state: closed transition betClose');
+          console.log('[SideBetFsm] From state: closed transition betClose');
           this.transition('uninitialized');
         },
         betOdds: function(odds) {
-          console.log('[MainBetFsm] From state: closed transition betOdds');
+          console.log('[SideBetFsm] From state: closed transition betOdds');
           this.currentState.odds = odds;
           this.emit('bet.odds', odds);
         }
       },
       open: {
         _onEnter: function() {
-          console.log('[MainBetFsm] Enter state: open');
+          console.log('[SideBetFsm] Enter state: open');
 
           // REWRITE EMIT
           this.emit('betting.open', {
@@ -115,7 +115,7 @@ angular.module('teemos-casino').factory('mainBetFsm',
           }, this.currentState.expires - Date.now());
         },
         placeBet: function(amount, team) {
-          console.log('[MainBetFsm] From state: open transition placeBet');
+          console.log('[SideBetFsm] From state: open transition placeBet');
           var bet = new Bet(),
               self = this;
 
@@ -141,12 +141,12 @@ angular.module('teemos-casino').factory('mainBetFsm',
           });
         },
         betExpire: function() {
-          console.log('[MainBetFsm] From state: open transition betExpire');
+          console.log('[SideBetFsm] From state: open transition betExpire');
           this.currentState.mode = 'closed';
           this.transition('closed');
         },
         betOdds: function(odds) {
-          console.log('[MainBetFsm] From state: open transition betOdds');
+          console.log('[SideBetFsm] From state: open transition betOdds');
           this.currentState.odds = odds;
           //REWRITE EMIT
           this.emit('bet.odds', odds);
@@ -154,14 +154,14 @@ angular.module('teemos-casino').factory('mainBetFsm',
       },
       placed: {
         _onEnter: function() {
-          console.log('[MainBetFsm] Enter state: placed');
+          console.log('[SideBetFsm] Enter state: placed');
         },
         betClose: function() {
-          console.log('[MainBetFsm] From state: placed transition betClose');
+          console.log('[SideBetFsm] From state: placed transition betClose');
           this.transition('uninitialized');
         },
         betOdds: function(odds) {
-          console.log('[MainBetFsm] From state: placed transition betOdds');
+          console.log('[SideBetFsm] From state: placed transition betOdds');
           this.currentState.odds = odds;
           //REWRITE EMIT
           this.emit('bet.odds', odds);
@@ -170,37 +170,37 @@ angular.module('teemos-casino').factory('mainBetFsm',
     }
   });
 
-  var mainBetFsm = new MainBetFsm();
+  var sideBetFsm = new SideBetFsm();
 
   pusher.on('bet_open', function(msg) {
     console.log('bet open ');
     console.log(msg);
-    if (msg.kind === 'game') {
-      mainBetFsm.handle('openBet', msg);
+    if (msg.kind !== 'game') {
+      sideBetFsm.handle('openBet', msg);
     }
   });
 
   pusher.on('bet_close', function(msg) {
     console.log('bet closed');
     console.log(msg);
-    if (msg.kind === 'game') {
-      mainBetFsm.handle('betClose', msg);
+    if (msg.kind !== 'game') {
+      sideBetFsm.handle('betClose', msg);
     }
   });
 
   pusher.on('bet_update', function(msg) {
     console.log('bet update');
     console.log(msg);
-    mainBetFsm.handle('betOdds', msg.odds);
+    sideBetFsm.handle('betOdds', msg.odds);
   });
 
   betMode.get().then(function(bets) {
     bets.forEach(function(bet) {
-      if (bet.kind === 'game' || bet.kind === null) {
-        mainBetFsm.handle('initialize', bet);
+      if (bet.kind !== 'game' || bet.kind === null) {
+        sideBetFsm.handle('initialize', bet);
       }
     });
   });
 
-  return mainBetFsm;
+  return sideBetFsm;
 }]);
