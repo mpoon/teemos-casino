@@ -18,7 +18,7 @@ class OpenBet < ActiveRecord::Base
   end
 
   def closed?
-    !open?
+    !open? || state == "resolved"
   end
 
   def expired?

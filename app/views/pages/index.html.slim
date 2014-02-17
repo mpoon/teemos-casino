@@ -25,7 +25,7 @@
           param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf"
           param name="flashvars" value="hostname=www.twitch.tv&amp;channel=teemoscasino&amp;auto_play=true&amp;start_volume=25"
 
-      .betting-status.card.bottom ng-controller="BettorStatusCtrl" ng-init="tab='mainbet'"
+      .betting-status.card.bottom ng-controller="BettorsCtrl" ng-init="tab='mainbet'"
         .meta-info-container
           ul.meta-info
             li
@@ -42,8 +42,8 @@
               = image_tag "share_fb.png"
 
         .heading.tabs
-          span ng-class="{active: tab == 'mainbet'}" ng-click="tab = 'mainbet'" Main Betters
-          span ng-class="{active: tab == 'sidebet'}" ng-click="tab = 'sidebet'" Side Betters
+          span ng-class="{active: displayBetType == 'main'}" ng-click="displayBetType = 'main'" Main Bettors
+          span ng-class="{active: displayBetType == 'side'}" ng-click="displayBetType = 'side'" Side Bettors
 
         .card-content-container.no-gutter
           .betting-status-container.clearfix
@@ -58,13 +58,13 @@
                     | {{bettor.amount}}
             .purple-betters.better-list
               h4 Live Bets on Purple
-              ul ng-show="tab == 'mainbet'"
+              ul ng-show="displayBetType == 'main'"
                 li ng-repeat='bettor in purpleLiveBets | orderBy:"-amount"'
                   .name
                     | {{bettor.name}}
                   .score
                     | {{bettor.amount}}
-              ul ng-show="tab == 'sidebet'"
+              ul ng-show="displayBetType == 'side'"
                 li ng-repeat='bettor in purpleLiveSideBets | orderBy:"-amount"'
                   .name
                     | {{bettor.name}}
@@ -72,13 +72,13 @@
                     | {{bettor.amount}}
             .blue-betters.better-list
               h4 Live Bets on Blue
-              ul ng-show="tab == 'mainbet'"
+              ul ng-show="displayBetType == 'main'"
                 li ng-repeat='bettor in blueLiveBets | orderBy:"-amount"'
                   .name
                     | {{bettor.name}}
                   .score
                     | {{bettor.amount}}
-              ul ng-show="tab == 'sidebet'"
+              ul ng-show="displayBetType == 'side'"
                 li ng-repeat='bettor in blueLiveSideBets | orderBy:"-amount"'
                   .name
                     | {{bettor.name}}

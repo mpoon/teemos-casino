@@ -10,10 +10,8 @@ TeemosCasino::Application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :game_events, only: [] do
       collection do
-        post :start
-        post :end
-        post :open_sidebet
-        post :close_sidebet
+        post :open_bet
+        post :close_bet
       end
     end
 
@@ -21,7 +19,9 @@ TeemosCasino::Application.routes.draw do
       get :logout, to: :destroy
     end
 
-    resource :bet, only: [:show, :create]
+    resource :bet, only: [:create] do
+      get :status, on: :collection
+    end
 
     resource :bettors, only: [:show]
   end

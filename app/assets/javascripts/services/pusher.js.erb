@@ -1,5 +1,5 @@
 /*global EventEmitter*/
-angular.module('salty-spork').factory('pusher',
+angular.module('teemos-casino').factory('pusher',
   ['$http', '$rootScope', 'user', function($http, $rootScope, user) {
 
   var ee = new EventEmitter();
@@ -11,16 +11,16 @@ angular.module('salty-spork').factory('pusher',
     $.speechBubble.write('Oops, your connection may have been interrupted. Reconnecting...');
   });
 
-  globalChannel.bind('bet.odds', function(message) {
-    ee.emit('bet.odds', message);
+  globalChannel.bind('bet_update', function(message) {
+    ee.emit('bet_update', message);
   });
 
-  globalChannel.bind('game_start', function(message) {
-    ee.emit('game_start', message);
+  globalChannel.bind('bet_open', function(message) {
+    ee.emit('bet_open', message);
   });
 
-  globalChannel.bind('game_end', function(message) {
-    ee.emit('game_end', message);
+  globalChannel.bind('bet_close', function(message) {
+    ee.emit('bet_close', message);
   });
 
   globalChannel.bind('season_top', function(message) {
@@ -29,14 +29,6 @@ angular.module('salty-spork').factory('pusher',
 
   globalChannel.bind('bettor', function(message) {
     ee.emit('bettor', message);
-  });
-
-  globalChannel.bind('sidebet_start', function(message) {
-    ee.emit('sidebet_start', message);
-  });
-
-  globalChannel.bind('sidebet_end', function(message) {
-    ee.emit('sidebet_end', message);
   });
 
   user.getStatus.then(function(status) {

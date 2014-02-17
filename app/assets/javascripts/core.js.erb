@@ -1,4 +1,4 @@
-angular.module('salty-spork', [
+angular.module('teemos-casino', [
   'ngResource',
   'ngRoute',
   'filters'
@@ -9,3 +9,16 @@ angular.module('salty-spork', [
   $templateCache.put('user.html', JST.user());
   $templateCache.put('bet.html', JST.bet());
 }]);
+
+angular.module('teemos-casino').constant('Constants', {
+  'TEAM_BLUE': 'blue',
+  'TEAM_PURPLE': 'purple',
+  'BETTING_STATE_CLOSED': 'closed',
+  'BETTING_STATE_OPEN': 'open',
+  'BETTING_STATE_PLACED': 'placed',
+  'BET_KIND_GAME': 'game',
+  'BET_KIND_TURRET': 'next_turret',
+  'BET_KIND_NEXT_KILL': 'next_kill',
+  'BET_KIND_NEXT_BARON': 'next_baron',
+  'BET_KIND_NEXT_DRAGON': 'next_dragon'
+});

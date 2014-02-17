@@ -13,194 +13,141 @@
       .wager.card-content.not-logged-in
         h4 Time Left To Bet
         .clock
-          | {{countdown | time}}
+          | {{countdown.main | time}}
 
       .bet-reward-multipliers.card-content
         h4 Reward Multipliers
         p.number-amount
           span.purple
-            | {{odds.purple.mult}}
+            | {{odds.main.purple.mult}}
           | &nbsp;:&nbsp;
           span.blue
-            | {{odds.blue.mult}}
+            | {{odds.main.blue.mult}}
 
-.ng ng-if="showBetControls" ng-switch="" on="betMode"
-  .heading.tabs
-    span ng-class="{active: displayBetType == 'main'}" ng-click="displayBetType = 'main'" Main Bet
-    span ng-class="{active: displayBetType == 'side'}" ng-click="displayBetType = 'side'" Side Bet
-
-  .ng ng-switch-when="sidebet"
-    .card-content-container
-      .bet.betting-open.side-bet ng-switch-when="open" style="display: block"
-        / show only the block below when there are no side bets
-        .wager.card-content.no-bet style="display: none"
-          h4 Preparing Sidebets
-          p.status-info
-            | While game is in-progress sidebets will appear here so pay attention!
-
-        .wager.card-content
-          h4 Your Wager
-          p.status-info
-            | Sidebet description here
-
-        .wager.card-content
-          h4
-            | Time Left - {{countdown | time}}
-
-          form
-            .available
-              p
-                | {{wallet | number}} Mushrooms Available
-
-            .bet-amount
-              input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
-
-            .options
-              button.first ng-click="makeBet(bet.amount, 'purple')" Purple
-              button.second ng-click="makeBet(bet.amount, 'blue')" Blue
-
-        .bet-reward-multipliers.card-content
-          h4 Reward Multipliers
-          p.number-amount
-            span.purple
-              | {{odds.purple.mult}}
-            | &nbsp;:&nbsp;
-            span.blue
-              | {{odds.blue.mult}}
-
-  .ng ng-switch-when="closed"
-    .card-content-container
-      .bet.betting-closed.main-bet style="display: block" ng-show="displayBetType == 'main'"
-        .your-bet.card-content ng-if="bet.status == 'placed'"
-          h4 Your Bet
-          .status
-            p.number-amount
-              | {{bet.amount | number}}
-            p.desc
-              | on
-              span class="{{ bet.team | lowercase }}"
-                | &nbsp;{{bet.team}}
-
-        .your-bet.card-content ng-if="bet.status != 'placed'"
-          h4 Match In Progress
-          p.status-info
-            | The match is currently in progress. Please enjoy the stream and bet on the next match!
-
-        .bet-status.card-content
-          h4 Bet Stats
-          p.number-amount
-            span.purple-bet-amount.bet-amount
-              | {{odds.purple.pool | number}}
-            span.blue-bet-amount.bet-amount
-              | {{odds.blue.pool | number}}
-
-        .bet-reward-multipliers.card-content
-          h4 Reward Multipliers
-          p.number-amount
-            span.purple
-              | {{odds.purple.mult}}
-            | &nbsp;:&nbsp;
-            span.blue
-              | {{odds.blue.mult}}
-      .bet.betting-closed.main-bet style="display: block" ng-show="displayBetType == 'side'"
-        .your-bet.card-content ng-if="bet.status == 'placed'"
-          h4 Your Bet
-          .status
-            p.number-amount
-              | {{bet.amount | number}}
-            p.desc
-              | on
-              span class="{{ bet.team | lowercase }}"
-                | &nbsp;{{bet.team}}
-
-        .your-bet.card-content ng-if="bet.status != 'placed'"
-          h4 Side Bet In Progress
-          p.status-info
-            | The side bet is currently in progress. Please enjoy the stream and bet on the next opportunity!
-
-        .bet-status.card-content
-          h4 Bet Stats
-          p.number-amount
-            span.purple-bet-amount.bet-amount
-              | {{odds.purple.pool | number}}
-            span.blue-bet-amount.bet-amount
-              | {{odds.blue.pool | number}}
-
-        .bet-reward-multipliers.card-content
-          h4 Reward Multipliers
-          p.number-amount
-            span.purple
-              | {{odds.purple.mult}}
-            | &nbsp;:&nbsp;
-            span.blue
-              | {{odds.blue.mult}}
-
-  .ng ng-switch-when="open"
-    .card-content-container
-      .bet.betting-open.main-bet style="display: block" ng-show="displayBetType == 'main'"
-        .wager.card-content
-          h4 Your Wager
-          p.status-info
-            | Purple vs Blue Team! Which team will win?
-
-        .wager.card-content
-          h4
-            | Time Left - {{countdown | time}}
-
-          form
-            .available
-              p
-                | {{wallet | number}} Mushrooms Available
-
-            .bet-amount
-              input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
-
-            .options
-              button.first ng-click="makeBet(bet.amount, 'purple')" Purple
-              button.second ng-click="makeBet(bet.amount, 'blue')" Blue
-
-        .bet-reward-multipliers.card-content
-          h4 Reward Multipliers
-          p.number-amount
-            span.purple
-              | {{odds.purple.mult}}
-            | &nbsp;:&nbsp;
-            span.blue
-              | {{odds.blue.mult}}
-
-      .bet.betting-open.side-bet style="display: block" ng-show="displayBetType =='side'"
-        / show only the block below when there are no side bets
-        .wager.card-content.no-bet style="display: none"
-          h4 Preparing Sidebets
-          p.status-info
-            | While game is in-progress sidebets will appear here so pay attention!
-
-        .wager.card-content
-          h4 Your Wager
-          p.status-info
-            | Sidebet description here
-
-        .wager.card-content
-          h4
-            | Time Left - {{countdown | time}}
-
-          form
-            .available
-              p
-                | {{wallet | number}} Mushrooms Available
-
-            .bet-amount
-              input.amount ng-model="bet.amount" ng-change="betAmountChange()" type="text" placeholder="Number of Mushrooms"
-
-            .options
-              button.first ng-click="makeBet(bet.amount, 'purple')" Purple
-              button.second ng-click="makeBet(bet.amount, 'blue')" Blue
-
-        .bet-reward-multipliers.card-content
-          h4 Reward Multipliers
-          p.number-amount
-            span.purple
-              | {{odds.purple.mult}}
-            | &nbsp;:&nbsp;
-            span.blue
-              | {{odds.blue.mult}}
+.ng ng-if="showBetControls"
+  .ng ng-show="displayBetType == 'main'"
+    .heading.tabs
+      span ng-class="{active: displayBetType == 'main'}" ng-click="displayBetType = 'main'" Main Bet
+      span ng-class="{active: displayBetType == 'side'}" ng-click="displayBetType = 'side'" Side Bet
+    .ng ng-switch="" on="betMode.main"
+      .ng ng-switch-when="closed"
+        .card-content-container
+          .bet.betting-closed.main-bet style="display: block"
+            .your-bet.card-content ng-if="bet.main.status == 'placed'"
+              h4 Your Bet
+              .status
+                p.number-amount
+                  | {{bet.main.amount | number}}
+                p.desc
+                  | on
+                  span class="{{bet.main.team | lowercase}}"
+                    | &nbsp:{{bet.main.team}}
+            .your-bet.card-content ng-if="bet.main.status != 'placed'"
+              h4 Match In Progress
+              p.status-info
+                | The match is currently in progress. Please enjoy the stream and bet on the next match!
+            .bet-status.card-content
+              h4 Bet Stats
+              p.number-amount
+                span.purple-bet-amount.bet-amount
+                  | {{odds.main.purple.pool | number}}
+                span.blue-bet-amount.bet-amount
+                  | {{odds.main.blue.pool | number}}
+            .bet-reward-multipliers.card-content
+              h4 Reward Multipliers
+              p.number-amount
+                span.purple
+                  | {{odds.main.purple.mult}}
+                | &nbsp;:&nbsp;
+                span.blue
+                  | {{odds.main.blue.mult}}
+      .ng ng-switch-when="open"
+        .card-content-container
+          .bet.betting-open.main-bet style="display: block"
+            .wager.card-content
+              h4 Your Wager
+              p.status-info
+                | Purple vs Blue Team! Which team will win?
+            .wager.card-content
+              h4
+                | Time Left - {{countdown.main | time}}
+              form
+                .available
+                  p
+                    | {{wallet | number}} Mushrooms Available
+                .bet-amount
+                  input.amount ng-model="bet.main.amount" ng-change="betAmountChange('game')" type="text" placeholder="Number of Mushrooms"
+                .options
+                  button.first ng-click="makeBet('game', bet.main.amount, 'purple')" Purple
+                  button.second ng-click="makeBet('game', bet.main.amount, 'blue')" Blue
+            .bet-reward-multipliers.card-content
+              h4 Reward Multipliers
+              p.number-amount
+                span.purple
+                  | {{odds.main.purple.mult}}
+                | &nbsp;:&nbsp;
+                span.blue
+                  | {{odds.main.blue.mult}}
+  .ng ng-show="displayBetType == 'side'"
+    .heading.tabs
+      span ng-class="{active: displayBetType == 'main'}" ng-click="displayBetType = 'main'" Main Bet
+      span ng-class="{active: displayBetType == 'side'}" ng-click="displayBetType = 'side'" Side Bet
+    .ng ng-switch="" on="betMode.side"
+      .ng ng-switch-when="closed"
+        .card-content-container
+          .bet.betting-closed.main-bet style="display: block"
+            .your-bet.card-content ng-if="bet.side.status == 'placed'"
+              h4 Your Bet
+              .status
+                p.number-amount
+                  | {{bet.side.amount | number}}
+                p.desc
+                  | on
+                  span class="{{bet.side.team | lowercase}}"
+                    | &nbsp:{{bet.side.team}}
+            .your-bet.card-content ng-if="bet.side.status != 'placed'"
+              h4 Match In Progress
+              p.status-info
+                | Sidebets are currently in progress. Please enjoy the stream and bet on the next match!
+            .bet-status.card-content
+              h4 Bet Stats
+              p.number-amount
+                span.purple-bet-amount.bet-amount
+                  | {{odds.side.purple.pool | number}}
+                span.blue-bet-amount.bet-amount
+                  | {{odds.side.blue.pool | number}}
+            .bet-reward-multipliers.card-content
+              h4 Reward Multipliers
+              p.number-amount
+                span.purple
+                  | {{odds.side.purple.mult}}
+                | &nbsp;:&nbsp;
+                span.blue
+                  | {{odds.side.blue.mult}}
+      .ng ng-switch-when="open"
+        .card-content-container
+          .bet.betting-open.main-bet style="display: block"
+            .wager.card-content
+              h4 Your Wager
+              p.status-info
+                | Purple vs Blue Team! Which team will win?
+            .wager.card-content
+              h4
+                | Time Left - {{countdown.side | time}}
+              form
+                .available
+                  p
+                    | {{wallet | number}} Mushrooms Available
+                .bet-amount
+                  input.amount ng-model="bet.side.amount" ng-change="betAmountChange('game')" type="text" placeholder="Number of Mushrooms"
+                .options
+                  button.first ng-click="makeBet('game', bet.side.amount, 'purple')" Purple
+                  button.second ng-click="makeBet('game', bet.side.amount, 'blue')" Blue
+            .bet-reward-multipliers.card-content
+              h4 Reward Multipliers
+              p.number-amount
+                span.purple
+                  | {{odds.side.purple.mult}}
+                | &nbsp;:&nbsp;
+                span.blue
+                  | {{odds.side.blue.mult}}
