@@ -22,8 +22,26 @@ angular.module('teemos-casino').controller('BettingCtrl',
   };
   $scope.displayBetType = 'main';
   $scope.odds = {
-    'main': {},
-    'side': {}
+    'main': {
+      blue: {
+        mult: 0,
+        pool: 0
+      },
+      purple: {
+        mult: 0,
+        pool: 0
+      }
+    },
+    'side': {
+      blue: {
+        mult: 0,
+        pool: 0
+      },
+      purple: {
+        mult: 0,
+        pool: 0
+      }
+    }
   };
   $scope.bet = {
     'main': {},
