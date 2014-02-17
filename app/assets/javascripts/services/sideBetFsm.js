@@ -173,25 +173,21 @@ angular.module('teemos-casino').factory('sideBetFsm',
   var sideBetFsm = new SideBetFsm();
 
   pusher.on('bet_open', function(msg) {
-    console.log('bet open ');
-    console.log(msg);
     if (msg.kind !== 'game') {
       sideBetFsm.handle('openBet', msg);
     }
   });
 
   pusher.on('bet_close', function(msg) {
-    console.log('bet closed');
-    console.log(msg);
     if (msg.kind !== 'game') {
       sideBetFsm.handle('betClose', msg);
     }
   });
 
   pusher.on('bet_update', function(msg) {
-    console.log('bet update');
-    console.log(msg);
-    sideBetFsm.handle('betOdds', msg.odds);
+    if (msg.kind !== 'game') {
+      sideBetFsm.handle('betOdds', msg.odds);
+    }
   });
 
   betMode.get().then(function(bets) {

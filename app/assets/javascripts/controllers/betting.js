@@ -167,7 +167,8 @@ angular.module('teemos-casino').controller('BettingCtrl',
     }
   };
 
-  var countdownInterval;
+  var mainCountdownInterval;
+  var sideCountdownInterval
   $scope.countdown = {
     'main': 0,
     'side': 0
@@ -178,7 +179,7 @@ angular.module('teemos-casino').controller('BettingCtrl',
       if (now > 0) {
         $scope.countdown.main = Math.floor(now / 1000);
       } else {
-        clearInterval(countdownInterval);
+        clearInterval(mainCountdownInterval);
       }
       $scope.$digest();
     } else {
@@ -186,7 +187,7 @@ angular.module('teemos-casino').controller('BettingCtrl',
       if (now > 0) {
         $scope.countdown.side = Math.floor(now / 1000);
       } else {
-        clearInterval(countdownInterval);
+        clearInterval(sideCountdownInterval);
       }
       $scope.$digest();
     }
@@ -198,8 +199,8 @@ angular.module('teemos-casino').controller('BettingCtrl',
       $scope.betMode.main = 'open';
       BetOdds.reset('game');
 
-      clearInterval(countdownInterval);
-      countdownInterval = setInterval(_.bind(updateCountdown, null, 'game', event.expires), 100);
+      clearInterval(mainCountdownInterval);
+      mainCountdownInterval = setInterval(_.bind(updateCountdown, null, 'game', event.expires), 100);
       Bet.reset('game');
     });
   });
@@ -241,8 +242,8 @@ angular.module('teemos-casino').controller('BettingCtrl',
       $scope.betMode.side = 'open';
       BetOdds.reset('side');
 
-      clearInterval(countdownInterval);
-      countdownInterval = setInterval(_.bind(updateCountdown, null, 'side', event.expires), 100);
+      clearInterval(sideCountdownInterval);
+      sideCountdownInterval = setInterval(_.bind(updateCountdown, null, 'side', event.expires), 100);
       Bet.reset('side');
     });
   });

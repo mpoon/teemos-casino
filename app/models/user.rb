@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
     end
 
     User.update_counters(id, wallet: change)
+    self.reload
     PusherClient.message(self, "wallet_update", {wallet: self.wallet, message: message})
   end
 end
