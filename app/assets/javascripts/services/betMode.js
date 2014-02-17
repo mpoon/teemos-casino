@@ -2,13 +2,13 @@ angular.module('teemos-casino').factory('betMode',
   ['$http', '$q', function($http, $q) {
 
     var deferred = $q.defer();
-    var status = {};
+    var bets = {};
 
     $http.get('/api/bet/status')
     .success(function(bets) {
       // TODO: error checking
       deferred.resolve(bets);
-    }).error(function(data, status_code) {
+    }).error(function() {
       bets = [{
         'mode': 'closed',
         'gameId': null,

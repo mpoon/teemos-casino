@@ -1,6 +1,6 @@
 angular.module('teemos-casino').controller('UserCtrl',
-  ['$scope', '$http', 'user', 'pusher', 'Constants',
-  function ($scope, $http, user, pusher, Constants) {
+  ['$scope', '$http', 'user', 'pusher',
+  function ($scope, $http, user, pusher) {
     user.getStatus.then(function(status) {
       $scope.loggedIn = status.loggedIn;
       $scope.user = status.user;

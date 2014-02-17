@@ -1,5 +1,5 @@
 angular.module('teemos-casino').controller('BettorsCtrl',
-  ['$scope', 'pusher', 'bettors', 'Constants', function ($scope, pusher, bettors, Constants) {
+  ['$scope', 'pusher', 'bettors', function ($scope, pusher, bettors) {
 
     $scope.displayBetType = 'main';
     $scope.seasonTop = [];

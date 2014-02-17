@@ -1,4 +1,4 @@
-/*global machina, mixpanel*/
+/*global machina*/
 angular.module('teemos-casino').factory('sideBetFsm',
   ['$resource', '$q', 'pusher', 'betMode', function($resource, $q, pusher, betMode) {
 
@@ -134,10 +134,9 @@ angular.module('teemos-casino').factory('sideBetFsm',
               gameId: self.currentState.gameId,
               amount: self.currentState.amount,
               team: self.currentState.team
-            })
+            });
             self.transition('placed');
-          }, function(error) {
-
+          }, function() {
           });
         },
         betExpire: function() {

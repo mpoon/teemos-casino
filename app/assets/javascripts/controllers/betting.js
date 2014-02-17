@@ -1,7 +1,6 @@
-/*global mixpanel*/
 angular.module('teemos-casino').controller('BettingCtrl',
-  ['$scope', '$resource', '$timeout', 'user', 'betMode', 'mainBetFsm', 'sideBetFsm', 'Constants',
-  function ($scope, $resource, $timeout, user, betMode, mainBetFsm, sideBetFsm, Constants) {
+  ['$scope', '$resource', '$timeout', 'user', 'betMode', 'mainBetFsm', 'sideBetFsm',
+  function ($scope, $resource, $timeout, user, betMode, mainBetFsm, sideBetFsm) {
 
   var teams = {
     'blue': 'Blue',
@@ -142,8 +141,9 @@ angular.module('teemos-casino').controller('BettingCtrl',
 
   // Validate bet model on change
   $scope.betAmountChange = function(kind) {
+    var num;
     if (kind === 'game') {
-      var num = parseInt($scope.bet.main.amount, 10);
+      num = parseInt($scope.bet.main.amount, 10);
 
       if ($scope.bet.main.amount && _.isNaN(num)) {
         // If not undefined (user input)
@@ -154,7 +154,7 @@ angular.module('teemos-casino').controller('BettingCtrl',
         $scope.bet.main.amount = num;
       }
     } else {
-      var num = parseInt($scope.bet.side.amount, 10);
+      num = parseInt($scope.bet.side.amount, 10);
 
       if ($scope.bet.side.amount && _.isNaN(num)) {
         // If not undefined (user input)
@@ -168,14 +168,15 @@ angular.module('teemos-casino').controller('BettingCtrl',
   };
 
   var mainCountdownInterval;
-  var sideCountdownInterval
+  var sideCountdownInterval;
   $scope.countdown = {
     'main': 0,
     'side': 0
   };
   var updateCountdown = function(kind, expires) {
+    var now;
     if (kind === 'game') {
-      var now = expires - Date.now();
+      now = expires - Date.now();
       if (now > 0) {
         $scope.countdown.main = Math.floor(now / 1000);
       } else {
@@ -183,7 +184,7 @@ angular.module('teemos-casino').controller('BettingCtrl',
       }
       $scope.$digest();
     } else {
-      var now = expires - Date.now();
+      now = expires - Date.now();
       if (now > 0) {
         $scope.countdown.side = Math.floor(now / 1000);
       } else {
