@@ -1,6 +1,7 @@
 angular.module('teemos-casino').controller('BettorsCtrl',
   ['$scope', 'pusher', 'bettors', 'Constants', function ($scope, pusher, bettors, Constants) {
 
+    $scope.displayBetType = 'main';
     $scope.seasonTop = [];
     $scope.purpleLiveBets = [];
     $scope.blueLiveBets = [];
@@ -8,8 +9,15 @@ angular.module('teemos-casino').controller('BettorsCtrl',
     $scope.blueLiveSideBets = [];
 
     bettors.getStatus().then(function(status) {
-      $scope.purpleLiveBets = status.purple;
-      $scope.blueLiveBets = status.blue;
+      status.bets.forEach(function(bet) {
+        if (bet.kind === 'game') {
+          $scope.purpleLiveBets = bet.purple;
+          $scope.blueLiveBets = bet.blue;
+        } else {
+          $scope.purpleLiveSideBets = bet.purple;
+          $scope.blueLiveSideBets = bet.blue;
+        }
+      });
       $scope.seasonTop = status.top;
     });
 
