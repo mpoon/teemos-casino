@@ -6,10 +6,6 @@ Salts' Ahoy!
   The quickest way to get started is to clone the project and utilize it like this:
 
   Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-
-  Install the `precise32` box
-  
-    vagrant box add precise32 http://files.vagrantup.com/precise32.box
  
   Start up Vagrant
 
