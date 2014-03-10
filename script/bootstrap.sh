@@ -11,7 +11,7 @@ apt-get install -y git
 # build dependencies
 apt-get install -y libpq-dev make g++
 
-apt-get install -y ruby2.0 ruby2.0-dev ruby2.0-doc
+apt-get install -y ruby2.0 ruby2.0-dev ruby2.0-doc ruby-switch
 
 apt-get install -y redis-server postgresql libsqlite3-dev
 apt-get install -y postgresql-contrib # hstore
@@ -30,6 +30,7 @@ sudo -u postgres psql -c "create database vagrant;"
 sudo -u postgres psql -d vagrant -c "CREATE EXTENSION hstore;"
 
 ## Set up ruby
+sudo ruby-switch --set ruby2.0
 sudo gem install bundler
 
 echo "Success!"
