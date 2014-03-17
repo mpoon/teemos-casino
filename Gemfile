@@ -46,7 +46,7 @@ gem 'sidekiq'
 gem 'dotenv-rails', groups: [:development, :test]
 
 # Use debugger
-gem 'debugger', group: [:development, :test]
+#gem 'debugger', group: [:development, :test]
 
 group :production do
   gem 'unicorn'
