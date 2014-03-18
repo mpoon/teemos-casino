@@ -16,6 +16,10 @@ $nav-accent-color: $dark-green;
         box-sizing: border-box;
 }
 
+// dialog
+$dialog-width: 800px;
+$dialog-height: 600px;
+
 // type
 body {
   color: #444;
@@ -256,6 +260,52 @@ header {
     }
   }
 }
+
+.about-menu {
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    @extend .nav-vertical-align;
+
+    .connect-link {
+      display: inline-block;
+      margin-right: 20px
+    }
+}
+
+.modal-dialog {
+	width: $dialog-width;
+	height: $dialog-height;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	margin-left: $dialog-width / 2 * -1;
+	margin-top: $dialog-height / 2 * -1;
+
+	.footer {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-size: 12px;
+		font-weight: bold;
+		
+		.button {
+			color: white;
+			height: 30px;
+			width: 100px;
+			display: block;
+			text-align: center;
+			line-height: 30px;
+			@extend .btn-blue;
+		}
+	}
+
+
+	.modal-about {
+		position: relative;
+	}
+}
+
 
 .banner-notification {
   height: 40px;

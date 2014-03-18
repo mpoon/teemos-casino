@@ -4,10 +4,16 @@
       a.logo href="#"
         | Teemo's Casino
 
+    /! about/future help screen
+    .about-menu ng-controller="AboutCtrl"
+      .ng ng-include="'about.html'"
+
     /! Collect the nav links, forms, and other content for toggling
     .user-menu ng-controller="UserCtrl"
       .ng ng-include="'user.html'"
     /! .navbar-collapse
+
+
 
   .content
     .left-container.column

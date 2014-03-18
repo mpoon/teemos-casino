@@ -29,6 +29,7 @@
 //= require noty/themes.default
 //= require noty/themes.speechBubble
 //= require noty/layouts.inline
+//= require ui-bootstrap
 
 // Application
 // ============
