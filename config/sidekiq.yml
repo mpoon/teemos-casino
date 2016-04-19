@@ -9,5 +9,5 @@
 #   - [seldom, 3]
 production:
   # Heroku redistogo mini has connection limit of 10
-  # http://manuel.manuelles.nl/sidekiq-heroku-redis-calc/
+  # http://manuelvanrijn.nl/sidekiq-heroku-redis-calc/
   :concurrency: 2
